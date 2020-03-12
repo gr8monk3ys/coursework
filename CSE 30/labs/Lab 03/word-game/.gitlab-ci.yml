@@ -1,0 +1,183 @@
+stages:
+  - build
+  - test
+  - review
+  - production
+  - cleanup
+
+variables:
+  IMAGE_REPO: $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_SLUG
+  IMAGE_TAG: $CI_COMMIT_SHA
+  IMAGE_TAG_LATEST: latest
+
+  IMAGE_REPO_MASTER: $CI_REGISTRY_IMAGE/master
+  IMAGE_TAG_MASTER_LATEST: latest
+
+  KUBERNETES_VERSION: 1.15.3
+  HELM_VERSION: 2.14.3
+
+  KUBE_SECRET_REGISTRY_NAME: gitlab-registry
+
+.deploy: &deploy
+  script:
+    - echo "Deploying..."
+    - apk add -U openssl curl tar gzip bash ca-certificates git
+    - curl "https://kubernetes-helm.storage.googleapis.com/helm-v${HELM_VERSION}-linux-amd64.tar.gz" | tar zx
+    - mv linux-amd64/helm /usr/bin/
+    - mv linux-amd64/tiller /usr/bin/
+    - helm version --client
+    - tiller -version
+    - curl -L -o /usr/bin/kubectl "https://storage.googleapis.com/kubernetes-release/release/v${KUBERNETES_VERSION}/bin/linux/amd64/kubectl"
+    - chmod +x /usr/bin/kubectl
+    - kubectl version --client
+    - echo ""
+    - export KUBECONFIG=$KUBE_CONFIG
+    - |
+      echo "Creating namespace...";
+      if [ -z "$(kubectl get namespace $KUBE_NAMESPACE)" ];
+      then
+        kubectl create namespace $KUBE_NAMESPACE;
+      fi
+    - |
+      echo "Creating registry credentials...";
+      if [ -z "$(kubectl -n $KUBE_NAMESPACE get secret $KUBE_SECRET_REGISTRY_NAME)" ];
+      then
+        kubectl create -n $KUBE_NAMESPACE secret docker-registry $KUBE_SECRET_REGISTRY_NAME \
+          --docker-server=$CI_REGISTRY \
+          --docker-username=$CI_REGISTRY_USER \
+          --docker-password=$CI_REGISTRY_PASSWORD \
+          --docker-email=michael.kirilov@gmail.com;
+      else
+        kubectl -n $KUBE_NAMESPACE delete secret $KUBE_SECRET_REGISTRY_NAME;
+        kubectl create -n $KUBE_NAMESPACE secret docker-registry $KUBE_SECRET_REGISTRY_NAME \
+          --docker-server=$CI_REGISTRY \
+          --docker-username=$CI_REGISTRY_USER \
+          --docker-password=$CI_REGISTRY_PASSWORD \
+          --docker-email=michael.kirilov@gmail.com;
+      fi
+    - |
+      echo "Applying helm template...";
+      # helm template chart/ --name $CI_PROJECT_NAME \
+      #   --set image.repository=$IMAGE_REPO \
+      #   --set image.tag=$IMAGE_TAG \
+      #   --set imagePullSecrets[0].name=$KUBE_SECRET_REGISTRY_NAME \
+      #   --set ingress.enabled=true \
+      #   --set ingress.annotations."certmanager\.k8s\.io\/cluster-issuer"=letsencrypt-production \
+      #   --set ingress.hosts[0].host=$INGRESS_DOMAIN \
+      #   --set ingress.hosts[0].paths[0]=/ \
+      #   --set ingress.tls[0].hosts[0]=$INGRESS_DOMAIN \
+      #   --set ingress.tls[0].secretName=$CI_ENVIRONMENT_SLUG-tls | kubectl -n $KUBE_NAMESPACE apply -f -;
+
+      helm template chart/ --name $CI_PROJECT_NAME \
+        --set fullnameOverride=$CI_PROJECT_NAME \
+        --set image.repository=$IMAGE_REPO \
+        --set image.tag=$IMAGE_TAG \
+        --set imagePullSecrets[0].name=$KUBE_SECRET_REGISTRY_NAME \
+        --set ingress.enabled=true \
+        --set ingress.hosts[0].host=$INGRESS_DOMAIN \
+        --set ingress.hosts[0].paths[0]=/ | kubectl -n $KUBE_NAMESPACE apply -f -;
+      kubectl rollout status -n $KUBE_NAMESPACE deployment $CI_PROJECT_NAME;
+
+build:
+  stage: build
+  image: docker:git
+  services:
+    - docker:19.03.1-dind
+  variables:
+    DOCKER_DRIVER: overlay2
+  script:
+    - echo "Build job..."
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+    - docker pull $IMAGE_REPO:$IMAGE_TAG_LATEST || docker pull $IMAGE_REPO_MASTER:$IMAGE_TAG_MASTER_LATEST || true
+    - docker tag $IMAGE_REPO:$IMAGE_TAG_LATEST local-cache:latest || docker tag $IMAGE_REPO_MASTER:$IMAGE_TAG_MASTER_LATEST local-cache:latest || true
+    - docker build --cache-from local-cache:latest -t $IMAGE_REPO:$IMAGE_TAG -t $IMAGE_REPO:$IMAGE_TAG_LATEST .
+    - docker push $IMAGE_REPO:$IMAGE_TAG
+    - docker push $IMAGE_REPO:$IMAGE_TAG_LATEST
+  only:
+    refs:
+      - branches
+      - tags
+
+test:
+  stage: test
+  image: docker:git
+  services:
+    - docker:19.03.1-dind
+  variables:
+    DOCKER_DRIVER: overlay2
+  script:
+    - echo "Test job..."
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+    - docker pull $IMAGE_REPO:$IMAGE_TAG
+    - docker run -i $IMAGE_REPO:$IMAGE_TAG bash -c "make test && ./bin/test"
+  only:
+    refs:
+      - branches
+      - tags
+
+review:
+  stage: review
+  image: alpine:latest
+  variables:
+    INGRESS_DOMAIN: $CI_ENVIRONMENT_SLUG.$KUBE_INGRESS_BASE_DOMAIN
+    KUBE_NAMESPACE: $CI_PROJECT_ID-$CI_ENVIRONMENT_SLUG
+  environment:
+    name: review/$CI_COMMIT_REF_NAME
+    url: http://$CI_ENVIRONMENT_SLUG.$KUBE_INGRESS_BASE_DOMAIN
+    on_stop: stop_review
+  <<: *deploy
+  only:
+    refs:
+      - branches
+  except:
+    refs:
+      - master
+
+stop_review:
+  stage: cleanup
+  image: alpine:latest
+  variables:
+    GIT_STRATEGY: none
+    KUBE_NAMESPACE: $CI_PROJECT_ID-$CI_ENVIRONMENT_SLUG
+  environment:
+    name: review/$CI_COMMIT_REF_NAME
+    action: stop
+  script:
+    - echo "Review stop job..."
+    - apk add -U openssl curl tar gzip bash ca-certificates git
+    - curl "https://kubernetes-helm.storage.googleapis.com/helm-v${HELM_VERSION}-linux-amd64.tar.gz" | tar zx
+    - mv linux-amd64/helm /usr/bin/
+    - mv linux-amd64/tiller /usr/bin/
+    - helm version --client
+    - tiller -version
+    - curl -L -o /usr/bin/kubectl "https://storage.googleapis.com/kubernetes-release/release/v${KUBERNETES_VERSION}/bin/linux/amd64/kubectl"
+    - chmod +x /usr/bin/kubectl
+    - kubectl version --client
+    - echo ""
+    - export KUBECONFIG=$KUBE_CONFIG
+    - kubectl delete namespace $KUBE_NAMESPACE
+
+    # TODO: Remove the container registry repository for this review branch.
+
+  when: manual
+  allow_failure: true
+  only:
+    refs:
+      - branches
+  except:
+    refs:
+      - master
+
+production:
+  stage: production
+  image: alpine:latest
+  variables:
+    INGRESS_DOMAIN: $KUBE_INGRESS_BASE_DOMAIN
+    KUBE_NAMESPACE: $CI_PROJECT_ID-$CI_ENVIRONMENT_SLUG
+  environment:
+    name: production
+    url: http://$KUBE_INGRESS_BASE_DOMAIN
+  <<: *deploy
+  only:
+    refs:
+      - master

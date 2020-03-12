@@ -1,0 +1,10 @@
+.DS_Store
+obj/*
+bin/*
+test/obj/*
+scratchpad/obj/*
+
+!obj/.gitkeep
+!bin/.gitkeep
+!test/obj/.gitkeep
+!scratchpad/obj/.gitkeep

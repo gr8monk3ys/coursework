@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+
+<html lang="en" style="padding-top: 50px;">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Word Game</title>
+
+    <link rel="stylesheet" href="bootstrap/bootstrap.min.css">
+
+    <script src="jquery/jquery.js"></script>
+    <script src="bootstrap/bootstrap.min.js"></script>
+    <script src="main.js"></script>
+
+    <style>
+        .mobile-only {
+            display: none;
+        }
+
+        .game-btn{
+            width: 70px;
+            height: 70px;
+        }
+
+        .game-word{
+            font-size: 5.5rem;
+            font-weight: 300;
+            line-height: 1.2;
+        }
+
+        .fixed-height{
+            height:241px;
+        }
+
+        .mobile-spaced{
+            margin-bottom: 0;
+        }
+        
+        .large-spaced{
+            margin-top: 50px;
+        }
+
+        @media screen and (max-width: 768px) {
+            .mobile-only {
+                display: block;
+            }
+            .game-btn{
+                width: 95px;
+                height: 70px;
+            }
+
+            .fixed-height{
+                padding-top:34px;
+                height:100px;
+            }
+            .game-word{
+                font-size: 2.0rem;
+                font-weight: 300;
+                line-height: 1.2;
+            }
+            .mobile-row{
+                margin-top:10px;
+                margin-bottom:10px;
+            }
+            .mobile-spaced{
+                margin-bottom:15px;
+            }
+            .large-spaced{
+                margin-top:0;
+            }
+        }
+
+    </style>
+    
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <a class="navbar-brand" href="#">Word Game</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+    </nav>
+
+
+    <main role="main">
+        <div class="jumbotron fixed-height">
+            <div class="container">
+                <h1 id="display-word" class="game-word text-center"></h1>
+            </div>
+        </div>
+        
+        <div class="container">
+            <div class="row" style="margin-bottom: 20px">
+                <div class="col-md mobile-row">
+                    <div class="row">
+                        <div class="col text-center">
+                            <button id="btn1"class="btn btn-lg btn-primary game-btn"></button>
+                        </div>
+        
+                        <div class="col text-center">
+                            <button id="btn2" class="btn btn-lg btn-primary game-btn"></button>
+                        </div>
+        
+                        <div class="col text-center">
+                            <button id="btn3" class="btn btn-lg btn-primary game-btn"></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md mobile-row">
+                    <div class="row">
+                        <div class="col text-center">
+                            <button id="btn4" class="btn btn-lg btn-primary game-btn"></button>
+                        </div>
+        
+                        <div class="col text-center">
+                            <button id="btn5" class="btn btn-lg btn-primary game-btn"></button>
+                        </div>
+        
+                        <div class="col text-center">
+                            <button id="btn6" class="btn btn-lg btn-primary game-btn"></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md mobile-row">
+                    <div class="row">
+                        <div class="col text-center">
+                            <button id="btn7" class="btn btn-lg btn-primary game-btn"></button>
+                        </div>
+        
+                        <div class="col text-center">
+                            <button id="btn8" class="btn btn-lg btn-primary game-btn"></button>
+                        </div>
+        
+                        <div class="col text-center">
+                            <button id="btn9" class="btn btn-lg btn-primary game-btn"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center large-spaced">
+                
+                <div class="col-6 text-center mobile-spaced">
+                    <button id="checkWord"class="btn btn-lg btn-success form-control">Check Word</button>
+                </div>
+                <div class="col-6 text-center mobile-spaced">
+                    <button id="clearWord"class="btn btn-lg btn-danger form-control">Clear Word</button>
+                </div>
+            </div>
+            <div class="row" style="margin-top:20px">
+                <div class="col" id="correct"></div>
+            </div>
+        </div>
+    </main>
+
+</body>
+
+</html>
