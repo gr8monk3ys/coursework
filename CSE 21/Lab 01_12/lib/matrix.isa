@@ -1,0 +1,16 @@
+<isa>
+	<name>Matrices and IO</name>
+	<intro>Input output with matrices (matrix writing and reading).</intro>
+
+	
+	<exercise>
+		<name>Multiplying matrices</name>
+		<type>code</type>
+		<intro>Multiplying matrices</intro>
+		<source>/src/matrix/MatrixMultiply.java</source>
+		<testclass>tests.MatrixMultiplyTest</testclass>
+		</exercise>
+
+	
+
+</isa>
