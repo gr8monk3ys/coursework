@@ -33,13 +33,29 @@ void search(int key){
     list<int> hashKey = hashTable[hashFunction(key)];
 
     int i = 0;
-    for(list<int>::const_iterator iter = hashKey.begin(), end = hashKey.end(); iter != end, ++iter)
+    for(list<int>::const_iterator iter = hashKey.begin(), end = hashKey.end(); iter != end, ++iter){
+
+        i++;
+    }
+    cout << key << "NOT FOUND\n";
 }
 
 void output(){
     for(int i = 0; i < hashSize; i++){
-        if()
+        int listIndex = 0;
+        cout << i << ": ";
+        list<int> hashKey = hashTable[hashFunction(i)];
+        for(list<int>::const_iterator iter = hashKey.begin(), end = hashKey.end(); iter != end, ++iter){
+            listIndex++;
+            if(hashTable[i].size() == listIndex){
+                cout << *iter;
+            } else {
+                cout << *iter << "->";
+            }
+            cout << "/n";
+        }
     }
+
 }
 
 int main(){

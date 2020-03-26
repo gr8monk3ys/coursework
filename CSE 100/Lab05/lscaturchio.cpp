@@ -15,13 +15,13 @@ void matrixTranspose(long** matrix){
     }
 }
 
-long* matrixConvert(long* A){
+long* matrixIterate(long* A){
     for(int i = 0; i < colSize; ++i){
         long iterValue = 0;
-        for(int j = 0; j < rowSize; j++){
-            long input;
+        long input;
+        for(int j = 0; j < rowSize; j++){      
             cin >> input;
-            iterValue += input * (long)pow(10, 9 - j);
+            iterValue += input * pow(10, 9 - j);
         }
         A[i] = iterValue;
     }
@@ -29,55 +29,52 @@ long* matrixConvert(long* A){
     return A;
 }
 
-void countingSort(long* A, long pos)
-{
-    long result[colSize]; 
-    long count[10] = {0}; 
-    int i;
+void countingSort(long* A, long k){
+    long count[rowSize] = {0};
+    long result[colSize];   
 
-    for (i = 0; i < colSize; i++){
-        count[(A[i] / pos) % 10]++;
+    for (int i = 0; i < colSize; i++){
+        count[(A[i] / k) % rowSize] += 1;
     }
-    for (i = 1; i < 10; i++){
-        count[i] += count[i-1];
+    for (int j = 1; j < rowSize; j++){
+        count[j] += count[j - 1];
     }
-    for (i = colSize - 1; i >= 0; i--){
-        result[count[(A[i] / pos) % 10] - 1] = A[i];
-        count[(A[i] / pos) % 10]--;
+    for (int l = colSize - 1; l >= 0; l--){
+        result[count[(A[l] / k) % rowSize] - 1] = A[l];
+        count[(A[l] / k) % rowSize] -= 1;
     }
-    for (i = 0; i < colSize; i++){
-        A[i] = result[i];
+    for (int m = 0; m < colSize; m++){
+        A[m] = result[m];
     }
 }
 
-long findMaxVal(long a, long b){
-    if(a > b){
-        return a;
+long findMaxVal(long* A){
+    long max = A[0];
+    for(int i = 0; i < colSize; i++){
+        if(A[i] > max){
+            max = A[i];
+        }
     }
-    return b;
+    return max;
 }
 
 void radixSort(long* A){
-    long max = -1000000;
-    long pos = 1;
-    long pass = 1;
-    for (int i = 0; i < colSize; i++){
-        max = findMaxVal(max, A[i]);
-    }
+    long preventSeg = 1;
+   long max = findMaxVal(A);
+
     for(int j = 1; max / j > 0; j *= 10){
         countingSort(A,  j);
-        pass++;
+        preventSeg++;
     }
 }
 
 void printMatrix(long* A){
     for(int i = 0; i < colSize; i++){
-        long iterVal= A[i];
-        long maxVal = 1000000000;
-        while(maxVal > 0){
-            cout << ((iterVal - (iterVal % maxVal)) / maxVal) << ";";
-            iterVal -= (iterVal - (iterVal % maxVal));
-            maxVal /= 10;
+        long iterVal = A[i];
+        for(long maxVal = 1 * pow(10, 9); maxVal > 0; maxVal /= rowSize){
+            long totVal = (iterVal - (iterVal % maxVal));
+            cout << (totVal / maxVal) << ";";
+            iterVal -= totVal;
         }
         cout << "\n";
     }
@@ -87,8 +84,7 @@ int main(){
 
     cin >> colSize;
     long matrix[colSize];
-    long* colMatrix = matrixConvert(matrix);
-
+    matrixIterate(matrix);
     radixSort(matrix);
     printMatrix(matrix);
 
