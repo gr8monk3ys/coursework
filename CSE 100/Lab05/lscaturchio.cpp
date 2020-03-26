@@ -7,8 +7,8 @@ int colSize;
 
 int findMaxVal(int * A, int n);
 void matrixTranspose(int** matrix, int n);
-void countingSort(int * A, int n);
-void radixSort(int * A, int n);
+void countingSort(int * A, int n, int exp);
+void radixSort(int* A, int n);
 void printMatrix(int** A, int n);
 
 int main(){
@@ -22,15 +22,15 @@ int main(){
     }
 
     matrixTranspose(matrix, colSize);
-
-    for(int i = 0; i < colSize; i++){
-        for(int j = 0; j < 10; j++){
-            radixSort(matrix[i], colSize);
-        }
-    }
-    
-    matrixTranspose(matrix, colSize);
     printMatrix(matrix, colSize);
+
+    // for(int j = 0; j < colSize; j++){
+    //     radixSort(matrix[j], j);
+    // }
+
+    
+    // matrixTranspose(matrix, colSize);
+    // printMatrix(matrix, colSize);
 
     return 0;
 }
@@ -55,31 +55,33 @@ void matrixTranspose(int** matrix, int n){
     }
 }
 
-void countingSort(int* A, int k){
+void countingSort(int* A, int k, int exp){
     int result[k];
     int count[10];
 
     for(int i = 0; i < k; i++){
-        count[i] = 0;
-    }
-    for(int j = 0; j < sizeof(A); j++){
-        count[A[j]] += 1;
+        count[(A[i] / exp) % 10]++;
     }
 
-    for(int i = 1; i <= k; i++){
+    // for(int j = 0; j < sizeof(A); j++){
+    //     count[A[j]] += 1;
+    // }
+
+    for(int i = 1; i < 10; i++){
         count[i] += count[i - 1];
     }
 
     for(int j = sizeof(A); j > 0; j--){
-        result[count[A[j] - 1]] = A[j];
-        count[A[j]] -= 1;
+        result[count[(A[j]/exp) % 10 - 1]] = A[j];
+        count[(A[j]/exp) % 10] -= 1;
     }
 }
 
 void radixSort(int* A, int d){
-    for(int i = 0; i < d; i++){
-        int max = findMaxVal(A, d);
-        countingSort(A,  d);
+    int max = findMaxVal(A, d);
+    
+    for(int i = 1; max/i > 0; i *= 10){
+        countingSort(A,  d, i);
     }
 }
 
