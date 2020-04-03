@@ -127,7 +127,7 @@ void searchPuzzle(char **arr, int n, char **list, int listSize)
 			if (isWord == 1)
 			{
 				*(word + j) = *(*(list + i) + j) - 32;
-				printf("%s\n", word);
+				printf("word found: %s\n", word);
 				break;
 			}
 
