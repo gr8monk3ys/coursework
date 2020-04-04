@@ -98,121 +98,100 @@ void printPuzzle(char **arr, int n)
 	}
 }
 
+char *toUpper(char **list, char *word, int i)
+{
+	for (int j = 0; j < strlen(*(list + i)); j++)
+	{
+		*(word + j) = *(*(list + i) + j);
+		if (*(*(list + i) + j) >= 97)
+		{
+			*(word + j) = *(*(list + i) + j) - 32;
+		}
+	}
+	return word;
+}
+
+char *toLower(char **list, char *word, int i)
+{
+	for (int j = 0; j < strlen(*(list + i)); j++)
+	{
+		*(word + j) = *(*(list + i) + j);
+		if (*(*(list + i) + j) < 97)
+		{
+			*(word + j) = *(*(list + i) + j) + 32;
+		}
+	}
+	return word;
+}
+
 void searchPuzzle(char **arr, int n, char **list, int listSize)
 {
 	for (int i = 0; i < listSize; i++)
 	{
 		char *word = (char *)malloc((listSize + 1) * sizeof(char *));
 		char *tempWord = (char *)malloc((listSize + 1) * sizeof(char *));
-		
+
 		int wordLen = 0;
 
-		for (int j = 0; j < strlen(*(list + i)); j++)
-		{
-			*(word + j) = *(*(list + i) + j);
-			if (*(*(list + i) + j) >= 97)
-			{
-				*(word + j) = *(*(list + i) + j) - 32;
-			}
-		}
+		toUpper(list, word, i);
 
 		int letterCount = 0;
 		int isWord = 0;
 		wordLen = strlen(word);
-		
+
 		for (int j = 0; j < wordLen; j++)
 		{
 
 			if (isWord == 1)
 			{
-				for (int j = 0; j < strlen(*(list + i)); j++)
-				{
-					*(word + j) = *(*(list + i) + j);
-					if (*(*(list + i) + j) < 97)
-					{
-						*(word + j) = *(*(list + i) + j) + 32;
-					}
-				}
+				toLower(list, word, i);
 				printf("word found: %s\n", word);
 				break;
 			}
 			else
 			{
-				for (int row = 0; row < n; row++)
+				for (int row = 0; row < n - 1; row++)
 				{
-					for (int col = 0; col < n; col++)
+					for (int col = 0; col < n - 1; col++)
 					{
 						if (*(*(arr + row) + col) == *(word + j)) // if letter of puzzle is letter of word
 						{
-							
+
 							if (*(word + j) % wordLen == wordLen)
 							{
 								*(tempWord + j) = *(*(arr + row) + col);
 								*(*(arr + row) + col) += 32;
 							}
 
-							// if ((*word + (j + 1)) == *(*(arr + row) + col + 1) && col < n) // if list prev letter is right
-							// {
-							// 	*(tempWord + (j + 1)) = (*word + (j + 1)); // set temp string as left value
-							// 	letterCount++;
-							// }
-							// else if ((*word + (j + 1)) == *(*(arr + row) + col - 1) && col > 0) // if list prev letter is left
-							// {
-							// 	*(tempWord + (j + 1)) = (*word + (j + 1)); // set temp string as right value
-							// 	letterCount++;
-							// }
+							if ((*word + (j + 1)) == *(*(arr + row) + col + 1) && col < n) // if list prev letter is right
+							{
+								*(tempWord + (j + 1)) = *(*(arr + row) + col - 1); // set temp string as left value
+								letterCount++;
+							}
+							else if ((*word + (j + 1)) == *(*(arr + row) + col - 1) && col > 0) // if list prev letter is left
+							{
+								*(tempWord + (j + 1)) = *(*(arr + row) + col + 1); // set temp string as right value
+								letterCount++;
+							}
 
-							// if (row > 0 && row < n)
-							// {
-							// 	if ((*word + (j + 1)) == *(*(arr + row - 1) + col + 1)) // if list prev letter is top right
-							// 	{
-							// 		*(tempWord + (j + 1)) = (*word + (j + 1)); // set temp string as bottom left value
-							// 		 *(*(arr + row - 1) + col + 1) += 32;
-							// 		letterCount++;
-							// 	}
-							// 	else if ((*word + (j + 1)) == *(*(arr + row - 1) + col - 1)) // if list prev letter is top left
-							// 	{
-							// 		*(tempWord + (j + 1)) = (*word + (j + 1)); // set temp string as bottom right value
-							// 		*(*(arr + row - 1) + col - 1) += 32;
-							// 		letterCount++;
-							// 	}
-							// 	else if ((*word + (j + 1)) == *(*(arr + row - 1) + col)) // if list prev letter is above
-							// 	{
-							// 		*(tempWord + (j + 1)) = (*word + (j + 1)); // set temp string as below value
-							// 		*(*(arr + row - 1) + col) += 32;
-							// 		letterCount++;
-							// 	}
-							// }
-
-							// if ((*word + (j + 1)) == *(*(arr + row) + col + 1) && col < n) // if list prev letter is right
-							// {
-							// 	*(tempWord + (j + 1)) = *(*(arr + row) + col - 1); // set temp string as left value
-							// 	letterCount++;
-							// }
-							// else if ((*word + (j + 1)) == *(*(arr + row) + col - 1) && col > 0) // if list prev letter is left
-							// {
-							// 	*(tempWord + (j + 1)) = *(*(arr + row) + col + 1); // set temp string as right value
-							// 	letterCount++;
-							// }
-
-							// if (row > 0 && row < n)
-							// {
-							// 	if ((*word + (j + 1)) == *(*(arr + row - 1) + col + 1)) // if list prev letter is top right
-							// 	{
-							// 		*(tempWord + (j + 1)) = *(*(arr + row + 1) + col - 1); // set temp string as bottom left value
-							// 		letterCount++;
-							// 	}
-							// 	else if ((*word + (j + 1)) == *(*(arr + row - 1) + col - 1)) // if list prev letter is top left
-							// 	{
-							// 		*(tempWord + (j + 1)) = *(*(arr + row + 1) + col + 1); // set temp string as bottom right value
-							// 		letterCount++;
-							// 	}
-							// 	else if ((*word + (j + 1)) == *(*(arr + row - 1) + col)) // if list prev letter is above
-							// 	{
-							// 		*(tempWord + (j + 1)) = *(*(arr + row + 1) + col); // set temp string as below value
-							// 		letterCount++;
-							// 	}
-							// }
+							if (row > 0 && row < n)
+							{
+								if ((*word + (j + 1)) == *(*(arr + row - 1) + col + 1)) // if list prev letter is top right
+								{
+									*(tempWord + (j + 1)) = *(*(arr + row + 1) + col - 1); // set temp string as bottom left value
+									letterCount++;
+								}
+								else if ((*word + (j + 1)) == *(*(arr + row - 1) + col - 1)) // if list prev letter is top left
+								{
+									*(tempWord + (j + 1)) = *(*(arr + row + 1) + col + 1); // set temp string as bottom right value
+									letterCount++;
+								}
+								else if ((*word + (j + 1)) == *(*(arr + row - 1) + col)) // if list prev letter is above
+								{
+									*(tempWord + (j + 1)) = *(*(arr + row + 1) + col); // set temp string as below value
+									letterCount++;
+								}
+							}
 						}
 					}
 				}
