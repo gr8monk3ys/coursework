@@ -11,7 +11,7 @@ MAIN:	la $t0, x
 		lw $s1, 0($t0) 	# s1 = y
 		
 		# Prepare to call sum(x)
-		add $a0, $zero, $s0	# Set a0 as input argument for SUM
+		add $a0, $zero, $s0	# Set a0 as input argument for SUM	
 		jal SUM
 		add $t0, $s1, $s0
 		add $s1, $t0, $v0
@@ -22,18 +22,39 @@ MAIN:	la $t0, x
 
 		
 SUM: 	la $t0, m
-		lw $s0, 0($t0)		# s0 = m
-		add $a0, $s0, $a0	# Update a0 as new argument for SUB
+		addi $sp, $sp -4	# Move $sp up
+		sw $ra, 0($sp)		# Store $ra in stack
+		
+		addi $sp, $sp -4	# Move $sp up
+		sw $s0, 0($sp)		# Store main $s0 in stack
+		
+		la $t0, m
+		lw $s0, 0($t0)		# $s0 = m
+		
+		addi $sp, $sp -4	# Move $sp up
+		sw $a0, 0($sp)		# Store 5(x) $a0 in stack
+		
+		add $a0, $s0, $a0	# Update $a0 as new argument for SUB
 		jal SUB
+		
+		lw $a0, 0($sp)		# Bring back $a0
+		addi $sp, $sp 4		# Move $sp down
+		
 		add $v0, $a0, $v0
-		jr $ra		
+		
+		lw $s0, 0($sp)		# Bring back $s0
+		addi $sp, $sp 4		# Move $sp down
+		
+		lw $ra, 0($sp)		# Bring back $ra
+		addi $sp, $sp 4		# Move $sp down
+		jr $ra			
 		
 SUB:	la $t0, b
 		addi $sp, $sp -4
-		sw $s0, 0($sp)		# Backup s0 from SUM
-		lw $s0, 0($t0)		# s0 = b
+		sw $s0, 0($sp)		# Backup $s0 from SUM
+		lw $s0, 0($t0)		# $s0 = b
 		sub $v0, $a0, $s0
-		lw $s0, 0($sp)		# Restore s0 from SUM
+		lw $s0, 0($sp)		# Restore $s0 from SUM
 		addi $sp, $sp 4
 		jr $ra
 
