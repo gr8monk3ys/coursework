@@ -67,8 +67,10 @@ SUM: 		addi $sp, $sp -4
 SUB:
 		addi $sp, $sp -4
 		sw $ra, 0($sp)		# Backup $ra from SUM
+		
 		sub $v0, $a0, $a1
 		lw $ra, 0($sp)        	# Restore ra from SUM
+		
         	addi $sp, $sp 4
         	jr $ra
 

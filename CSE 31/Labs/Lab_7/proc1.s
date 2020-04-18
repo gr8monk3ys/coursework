@@ -1,4 +1,4 @@
-        .data
+	        .data
 m: 		.word 10
 n: 		.word 5
 

@@ -51,10 +51,13 @@ SUM: 	la $t0, m
 		
 SUB:	la $t0, b
 		addi $sp, $sp -4
+		
 		sw $s0, 0($sp)		# Backup $s0 from SUM
 		lw $s0, 0($t0)		# $s0 = b
+		
 		sub $v0, $a0, $s0
 		lw $s0, 0($sp)		# Restore $s0 from SUM
+		
 		addi $sp, $sp 4
 		jr $ra
 
