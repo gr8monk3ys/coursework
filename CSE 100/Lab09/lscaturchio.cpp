@@ -1,106 +1,104 @@
 #include <iostream>
 #include <queue>
-#include <map>
-#include <iterator>
-#include <cstdlib>
 using namespace std;
 
-int n;
-
-typedef vector<bool> CodeVector;
-typedef map<int, CodeVector> CodeMap;
+int n = 6;
 
 struct Node
 {
     char letter;
-    int freq;
-    Node *l, *r;
+    unsigned frequency;
 
-    Node(char letter, int freq)
+    Node *left;
+    Node *right;
+
+    Node(char letter, unsigned frequency)
     {
-        l = r = NULL;
+        left = right = NULL;
         this->letter = letter;
-        this->freq = freq;
+        this->frequency = frequency;
     }
 };
 
-struct NodeCompare
+struct compare
 {
-    bool operator()(Node *l, Node *r)
+    bool operator()(Node *left, Node *right)
     {
-        if (l->freq == r->freq)
-        {
-            int lIndex = -1, rIndex = -1;
-            if (NodeLeafy *ll = dynamic_cast<NodeLeafy *>(l))
-            {
-                lIndex = ll->index;
-            }
-            else
-            {
-                Node *ptrNode = l;
-                while (lIndex == -1)
-                {
-                    if (NodeLeafy *ll = dynamic_cast<NodeLeafy *>(ptrNode))
-                    {
-                        lIndex = ll->index;
-                    }
-
-                    else
-                    {
-                        ptrNode = dynamic_cast<NodeInny *>(ptrNode)->l;
-                    }
-                }
-            }
-            if (NodeLeafy *rr = dynamic_cast<NodeLeafy *>(r))
-                rIndex = rr->index;
-            else
-            {
-                Node *ptrNode = r;
-                while (rIndex == -1)
-                {
-                    if (NodeLeafy *rr = dynamic_cast<NodeLeafy *>(ptrNode))
-                        rIndex = (int)rr->index;
-                    else
-                        ptrNode = dynamic_cast<NodeInny *>(ptrNode)->l;
-                }
-            }
-            return lIndex > rIndex;
-        }
-        /* Else choose greater frequency*/
-        return l->freq > r->freq;
+        return (right->frequency < left->frequency);
     }
 };
 
-void makeCode(Node *node, const CodeVector &codePtr, CodeMap &code)
+void formCodes(struct Node *root, char letter, string str)
 {
-    /* If is an internal node */
-    if (NodeInny *nodeI = dynamic_cast<NodeInny *>(node))
+    if (!root)
     {
-        CodeVector l = codePtr;
-        l.push_back(false);
-        makeCode(nodeI->l, l, code);
-
-        CodeVector r = codePtr;
-        r.push_back(true);
-        makeCode(nodeI->r, r, code);
+        return;
+    }
+    else if (root->letter != '$' && letter == root->letter)
+    {
+        cout << root->letter;
+        cout << ":";
+        cout << str;
+        cout << "\n";
     }
 
-    /* If is a leaf */
-    else if (NodeLeafy *nodeL = dynamic_cast<NodeLeafy *>(node))
+    formCodes(root->left, letter, str + "0");
+    formCodes(root->right, letter, str + "1");
+}
+
+void makeCodes(priority_queue<Node *, vector<Node *>, compare> tree, int n, char *letter)
+{
+    int i = 0;
+    while (i < n)
     {
-        code[nodeL->index] = codePtr;
+        formCodes(tree.top(), letter[i], "");
+        i++;
     }
+}
+
+void makeTree(char *letter, int *frequency, int len)
+{
+    int i;
+    struct Node *left, *right, *top;
+    priority_queue<Node *, vector<Node *>, compare> tree;
+
+    i = 0;
+    while (i < len)
+    {
+        Node *newLeaf = new Node(letter[i], frequency[i]);
+        tree.push(newLeaf);
+        i++;
+    }
+
+    while (tree.size() > 1)
+    {
+        left = tree.top();
+        tree.pop();
+        right = tree.top();
+        tree.pop();
+
+        top = new Node('$', left->frequency + right->frequency);
+        top->right = right;
+        top->left = left;
+        tree.push(top);
+    }
+
+    makeCodes(tree, n, letter);
 }
 
 int main()
 {
-    cin >> n;
-    int vals[n];
+    int frequency[n];
+    char arr[] = {'A', 'B', 'C', 'D', 'E', 'F'};
 
-    for (int i = 0; i < n; i++)
+    int i = 0;
+    while (i < n)
     {
-        cin >> vals[i];
+        cin >> frequency[i];
+        i++;
     }
+
+    makeTree(arr, frequency, n);
 
     return 0;
 }
