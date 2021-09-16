@@ -1,0 +1,27 @@
+## Question 1
+In order to be able to run this, simply enter a value for the radius for ex: 2 and it will spit out
+the result for you. 
+
+question\ 1/./findArea
+
+## Question 2
+For this exercise, just make sure that the example text file "text.txt" is provided so that it would
+be able to run, otherwise, just input the script file itself as the input to test.
+
+question\ 2/./fillVector
+
+## Question 3
+
+
+question\ 3/./mainTest
+
+## Question 4
+This exercise is run like question 1. Simply run it and no need to worry about the input, as it was
+algorithmically trying to solve for finding all prime numbers.
+
+question\ 4/./prime
+
+## Question 5
+This exercise is interesting as you could input any text you want, however, what is important is testing out the keywords which is mentioned in the source code itself.
+
+question\ 1/./mapWords
