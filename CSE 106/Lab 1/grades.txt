@@ -1,0 +1,5 @@
+"John Smith":78.3,
+"Jose Rodriguez":91.2,
+"Susan Miller":87.9,
+"Rahul Brahim":86.2,
+"Amy Lee": 96.1
