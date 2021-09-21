@@ -17,7 +17,7 @@ def edit_grade(students):
 
 def delete_grade(students):
     name = input('Enter student name: ')
-    students[name] = ''
+    del(students[name])
     print('Grade has been deleted.')
     print(students)
     return students
