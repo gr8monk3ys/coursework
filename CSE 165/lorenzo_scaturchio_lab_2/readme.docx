@@ -1,20 +1,20 @@
 ## Question 1
 
-g++ question\ 1/struct.cpp -o struct ; question\ 1/./struct
+compile + run: g++ question\ 1/struct.cpp -o struct ; question\ 1/./struct
 
 ## Question 2
 
-g++ question\ 2/printBinary.cpp -o printBinary ; question\ 2/./printBinary
+compile + run: g++ question\ 2/printBinary.cpp -o printBinary ; question\ 2/./printBinary
 
 ## Question 3
 
-g++ floatingAsBinary.cpp printBinary.cpp -o floatingAsBinary ; 
-question\ 3/./floatingAsBinary
+compile: g++ floatingAsBinary.cpp printBinary.cpp -o floatingAsBinary ; 
+run: question\ 3/./floatingAsBinary
 
 ## Question 4
 
-g++ question\ 4/stringCopy.cpp -o stringCopy ; question\ 4/./prime
+compile + run: g++ question\ 4/stringCopy.cpp -o stringCopy ; question\ 4/./prime
 
 ## Question 5
 
-g++ question\ 5/linkedList.cpp -o linkedList ; question\ 5/./linkedList
+compile + run: g++ question\ 5/linkedList.cpp -o linkedList ; question\ 5/./linkedList
