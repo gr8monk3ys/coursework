@@ -6,9 +6,6 @@ struct Struct {
     Struct* np = nullptr;
 };
 
-// void makeLinkedList(Struct* sp, int len);
-// void printList(Struct* sp);
-
 void makeLinkedList(Struct* sp, int len) {
     Struct* tp = sp;
 
