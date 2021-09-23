@@ -22,10 +22,13 @@ class Schedule:
 
 
 with open('classesInput.txt', 'r') as file:
+    list = []
     for line in file:
         word = line.split()
+        list.append(word)
+        print(list)
         schedule = Schedule()
-        for word in range(9):
+        for list in range(9):
             if word == 0:
                 schedule.num_courses = word
             elif word == 1 or word % 9 == 1:
