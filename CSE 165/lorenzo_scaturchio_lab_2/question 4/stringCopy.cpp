@@ -3,19 +3,21 @@
 #include <cstddef>
 using namespace std;
 
-char* copy(char* s1) {
-    size_t len = strlen(s1);
-    char* s2 = new char[len + 1];
-    strcpy(s2, s1);
-    return s2;
+char* stringCopy(char* firstString) {
+    size_t len = strlen(firstString);
+    char* secondString = new char[len + 1];
+
+    strcpy(secondString, firstString);
+
+    return secondString;
 }
 
 int main() {
-    char* first = "Read my lips";
-    char* second = copy(first);
-    cout << "first == \"" << first << "\" at "
-        << static_cast<void*>(first) << endl;
-    cout << "second == \"" << second << "\" at "
-        << static_cast<void*>(second) << endl;
-    delete[] second;
+    char* firstString = "Hi there!";
+    char* secondString = stringCopy(firstString);
+
+    cout << "firstString: \"" << firstString << "\" at " << static_cast<void*>(firstString) << endl;
+    cout << "secondString: \"" << secondString << "\" at " << static_cast<void*>(secondString) << endl;
+
+    delete[] secondString; // to prevent segmentation fault
 }
