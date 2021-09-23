@@ -1,1 +1,1 @@
-void printBinary(const unsigned char val);
+void printBinary(float x);
