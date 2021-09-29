@@ -4,12 +4,12 @@
 #include <cstddef>
 using namespace std;
 
-class StringVector : private vector<void*> {
+class StringVector : public vector<void*> {
 public:
     void push_back(string* s) {
         vector<void*>::push_back(s);
     }
-    string*& operator[](size_t n) {
+    string* operator[](size_t n) {
         return reinterpret_cast<string*>
             (vector<void*>::operator[](n));
     }
@@ -17,17 +17,20 @@ public:
         return reinterpret_cast<const string*>
             (vector<void*>::operator[](n));
     }
-    using vector<void*>::size;
 };
 
 int main() {
-    StringVector v;
-    string s1("live"), s2("long"), s3("and"), s4("prosper");
-    v.push_back(&s1);
-    v.push_back(&s2);
-    v.push_back(&s3);
-    v.push_back(&s4);
-    for (size_t i = 0; i < v.size(); ++i) {
-        cout << *v[i] << endl;
+    StringVector stringVector;
+    string string1("Hi"), string2("there"), string3("my"), string4("friend");
+
+    stringVector.push_back(&string1);
+    stringVector.push_back(&string2);
+    stringVector.push_back(&string3);
+    stringVector.push_back(&string4);
+
+    size_t i = 0;
+    while (i < stringVector.size()) {
+        cout << *stringVector[i] << endl;
+        ++i;
     }
 }
