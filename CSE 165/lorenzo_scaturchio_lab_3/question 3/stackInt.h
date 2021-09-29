@@ -5,9 +5,9 @@
 using std::size_t;
 #endif
 
-struct StackImp;
+struct StackImplementation;
 
-struct StackOfInt {
+struct StackInt {
     enum {STKERROR = INT_MIN};
     void init();
     void cleanup();
@@ -17,5 +17,5 @@ struct StackOfInt {
     size_t size();
 
 private:
-    StackImp* pImpl;
+    StackImplementation* pImplementation;
 };

@@ -3,12 +3,16 @@
 
 int main() {
     using namespace std;
-    StackOfInt stk;
+    StackInt stack;
 
-    stk.init();
-    for (int i = 0; i < 5; ++i)
-        stk.push(i);
+    stack.init();
+    
+    int i = 0;
+    while(i < 5){
+        stack.push(i);
+        ++i;
+    }
 
-    while (stk.size() > 0)
-        cout << stk.pop() << endl;
+    while (stack.size() > 0)
+        cout << stack.pop() << endl;
 }

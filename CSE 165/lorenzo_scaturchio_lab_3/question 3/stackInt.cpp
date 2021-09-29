@@ -2,46 +2,46 @@
 #include <vector>
 using namespace std;
 
-// Complete the incomplete type StackImp:
+// Complete the incomplete type StackImplementation:
 // (This could be in a separate header file)
-struct StackImp {
+struct StackImplementation {
     enum { MAXSIZE = 100 };
     vector<int> data;
 };
 
-void StackOfInt::init() {
-    pImpl = new StackImp;
+void StackInt::init() {
+    pImplementation = new StackImplementation;
 }
 
-int StackOfInt::push(int x) {
-    if (pImpl->data.size() == StackImp::MAXSIZE)
+int StackInt::push(int x) {
+    if (pImplementation->data.size() == StackImplementation::MAXSIZE)
         return STKERROR;
     else {
-        pImpl->data.push_back(x);
+        pImplementation->data.push_back(x);
         return x;
     }
 }
 
-int StackOfInt::pop() {
-    if (pImpl->data.size() == StackImp::MAXSIZE)
+int StackInt::pop() {
+    if (pImplementation->data.size() == StackImplementation::MAXSIZE)
         return STKERROR;
     else {
-        int x = pImpl->data.back();
-        pImpl->data.pop_back();
+        int x = pImplementation->data.back();
+        pImplementation->data.pop_back();
         return x;
     }
 }
 
-int StackOfInt::top() {
-    return (pImpl->data.size() == StackImp::MAXSIZE)
+int StackInt::top() {
+    return (pImplementation->data.size() == StackImplementation::MAXSIZE)
         ? STKERROR
-        : pImpl->data.back();
+        : pImplementation->data.back();
 }
 
-size_t StackOfInt::size() {
-    return pImpl->data.size();
+size_t StackInt::size() {
+    return pImplementation->data.size();
 }
 
-void StackOfInt::cleanup() {
-    delete pImpl;
+void StackInt::cleanup() {
+    delete pImplementation;
 }
