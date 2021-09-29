@@ -1,0 +1,20 @@
+## Question 1
+
+compile + run: g++ question\ 1/point.cpp -o point ; question\ 1/./point
+
+## Question 2
+
+compile + run: g++ question\ 2/friends.cpp -o friends ; question\ 2/./friends
+
+## Question 3
+
+compile: g++ stackInt.cpp test.cpp -o stackInt ; 
+run: question\ 3/./stackInt
+
+## Question 4
+
+
+
+## Question 5
+
+compile + run: g++ question\ 5/stringVector.cpp -o stringVector ; question\ 5/./stringVector

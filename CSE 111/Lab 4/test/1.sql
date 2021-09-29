@@ -1,0 +1,2 @@
+-- select c_name, o_totalprice from customer, orders, nation
+-- where n_name is 'FRANCE' and o_orderdate between '1996-00-00' and '1997-00-00';
