@@ -8,12 +8,12 @@ compile + run: g++ question\ 2/friends.cpp -o friends ; question\ 2/./friends
 
 ## Question 3
 
-compile: g++ stackInt.cpp test.cpp -o stackInt ; 
+compile: g++ question\ 3/stackInt.cpp test.cpp -o stackInt ; 
 run: question\ 3/./stackInt
 
 ## Question 4
 
-
+compile + run : g++ question\ 4/useHandlle.cpp -o handle ; question\ 4/./handle
 
 ## Question 5
 
