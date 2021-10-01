@@ -1,3 +1,7 @@
-select distinct s_name, o_orderstatus, count(*) from supplier, orders, nation
-where n_name is 'CANADA'
-order by o_orderpriority; 
+-- select s_name, o_orderpriority, count(distinct p_partkey) from supplier, part
+-- inner join nation on n_nationkey is s_nationkey
+-- inner join orders on o_custkey is c_custkey
+-- inner join customer on c_nationkey is s_nationkey
+-- where n_name is 'CANADA'
+-- group by s_name, o_orderpriority
+-- order by s_name, o_orderpriority;
