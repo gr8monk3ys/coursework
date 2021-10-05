@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Quicksand&display=swap');
+
+* {
+    background-color:	#8f949c;
+    color:	#333b44;
+    font-size: 16;
+    position: relative;
+    text-align: center;
+    font-family: helvetica;
+}
+
+h1 {
+    font-size: 3em;
+    padding:0;
+    color:	#333b44;
+    margin-bottom: 0%;
+}
+
+p {
+    font-size: 2em;
+}
+
+.topnav {
+    background-color:	#616870;
+    overflow: hidden;
+  }
+  
+  .topnav a {
+    float: left;
+    color: #eaedf4;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+  }
+
+  .topnav a:hover {
+    background-color: #eaedf4;
+    color: black;
+  }
+  
+  .topnav a.active {
+    background-color:	#bcc1c8;
+    color: white;
+  }
+
+  .styled-table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.styled-table thead tr {
+    background-color: #009879;
+    color: #ffffff;
+    text-align: left;
+}
+.styled-table th,
+.styled-table td {
+    padding: 12px 15px;
+}
+.styled-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid #f3f3f3;
+}
+
+#myVideo {
+    position: absolute;
+    width: 50%;
+    height: 50%;
+}
