@@ -1,4 +1,7 @@
-select p_mfgr from part, supplier
+select p_mfgr from part
 inner join partsupp on ps_partkey is p_partkey
-where ps_availqty is (select max(ps_availqty) from partsupp
-where s_name is '%000000010%');
+inner join supplier on s_suppkey is ps_suppkey
+where ps_availqty is (select min(ps_availqty) from partsupp
+inner join supplier on s_suppkey is ps_suppkey
+where s_name is 'Supplier#000000010')
+group by ps_availqty;
