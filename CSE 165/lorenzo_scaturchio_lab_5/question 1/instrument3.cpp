@@ -5,21 +5,21 @@ enum note { middleC, Csharp, Cflat };
 class Instrument {
 public:
     virtual void play(note) const {
-        cout << "Instrument playing";
+        cout << "Instrument::play" << endl;
     }
 
     virtual void prepare() const {
-        cout << "Instrument preparing";
+        cout << "Instrument::preparing" << endl;
     }
 };
 
 class Wind : public Instrument {
 public:
     void play(note) const {
-        cout << "Wind play";
+        cout << "Wind::play" << endl;
     }
     void prepare() const {
-        cout << "Wind prepare";
+        cout << "Wind::prepare" << endl;
     }
 };
 
