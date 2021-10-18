@@ -1,10 +1,14 @@
-select distinct p_name from supplier, nation as asna, region as asre, nation as amcna, region as amcre
-inner join lineitem on l_suppkey is s_suppkey
-inner join orders on o_orderkey is l_orderkey
-inner join customer on c_custkey is o_custkey
+select distinct p_name from customer, region
 inner join part on p_partkey is l_partkey
-where c_nationkey is amcna.n_nationkey and amcna.n_regionkey is amcre.r_regionkey
-and s_nationkey is asna.n_nationkey and asna.n_regionkey is asre.r_regionkey
-and amcre.r_name is 'AMERICA'
-and asre.r_name is 'ASIA'
-group by p_name having count(s_suppkey) is 3;
+inner join lineitem on l_orderkey is o_orderkey
+inner join orders on o_custkey is c_custkey
+inner join nation on n_regionkey is r_regionkey
+where r_name is 'AMERICA' and p_name in(select p_name from supplier 
+inner join part on p_partkey is l_partkey
+inner join lineitem on l_suppkey is s_suppkey
+inner join nation on n_nationkey is s_nationkey
+inner join region on r_regionkey is n_regionkey
+where r_name is 'ASIA'
+GROUP BY p_name
+HAVING COUNT(s_suppkey) is 3)
+ORDER BY p_name;
