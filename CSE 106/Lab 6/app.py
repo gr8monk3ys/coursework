@@ -1,5 +1,5 @@
 import json
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template
 
 app = Flask(__name__)
 
@@ -13,15 +13,16 @@ def search():
     data = json.parse(request.response)
     keys = Object.keys(data)
 
-    i = 0
-    while i < keys.length:
-        text += "<tr><td>" + keys[i] + "</td><td>" + data[keys[i]] + "</td></tr>"
-        i++
-    text += "</table>"
-    return text
+    # i = 0
+    # while i < keys.length:
+    #     text += "<tr><td>" + keys[i] + "</td><td>" + data[keys[i]] + "</td></tr>"
+    #     i++
+    # text += "</table>"
+    # return text
 
 @app.route("/grades", methods=['GET'])
 def get():
+
     return
 
 @app.route("/grades", methods=['PUT'])
