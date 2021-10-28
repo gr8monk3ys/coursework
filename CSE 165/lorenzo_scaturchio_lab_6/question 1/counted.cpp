@@ -3,8 +3,8 @@ using namespace std;
 
 class Counted {
 public:
-    Counted() : id(count++) { cout << "Counted created, id: " << id << endl; }
-    ~Counted() { cout << "Counted deleted, id: " << id << endl; }
+    Counted() : id(count++) { cout << "Counted created id: " << id << endl; }
+    ~Counted() { cout << "Counted deleted id: " << id << endl; }
 private:
     int id;
     static int count;
