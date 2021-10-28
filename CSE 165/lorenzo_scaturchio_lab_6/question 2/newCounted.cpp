@@ -22,15 +22,15 @@ ostream& operator<< (ostream& out, const Counted& o) {
 int main() {
     vector<Counted*> vectorCount;
     int i = 0;
-    
-    while(i < 10){
+
+    while (i < 10) {
         vectorCount.push_back(new Counted);
         i++;
     }
 
     cout << "Vector created elements: " << vectorCount.size() << endl;
 
-    while(i < vectorCount.size()){
+    while (i < vectorCount.size()) {
         cout << *vectorCount[i] << ' ';
     }
 
