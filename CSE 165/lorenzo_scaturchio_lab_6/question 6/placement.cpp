@@ -16,9 +16,9 @@ public:
 vector<string> Placement::placeVec;
 
 void* Placement::operator new(size_t size, const char* file, int line) {
-    ostringstream os;
-    os << file << ", line " << line;
-    placeVec.push_back(os.str());
+    ostringstream oString;
+    oString << file << ", line " << line;
+    placeVec.push_back(oString.str());
     return ::operator new(size);
 }
 
