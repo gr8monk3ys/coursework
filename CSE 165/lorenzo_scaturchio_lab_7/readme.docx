@@ -1,0 +1,11 @@
+## Question 1
+
+cd ../question \ 1/ ; g++ counted.cpp -o counted ; ./counted
+
+## Question 2
+
+cd ../question\ 2/ ; g++ newCounted.cpp -o newCounted ; ./newCounted
+
+## Question 3
+
+cd ../question\ 3/ ; g++ countedMember.cpp -o countedMember ; ./countedMember
