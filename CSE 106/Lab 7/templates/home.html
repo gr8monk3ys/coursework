@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static', filename='style.css') }}">
+    <script type = "text/javascript" src="/static/script.js" ></script>
+    <title>Student Grader</title>
+</head>
+
+<body>
+    {% block content %}
+    <div class="row1" id="1">
+        <div class="searchGrade">
+            <h2>Search Records</h2>
+            <label for="name">Name: </label>
+            <input type="text" id="name" />
+            <button type="submit" onclick="get()">Search Grade</button>
+            <br><br>
+            <input type="text" id="searchGrade" placeholder="Your Grade" readonly />
+        </div>
+        <div class="all_grades">
+            <h2>See All Records</h2>
+            <button type="submit" onclick="search()">See Records{{seaerch()}}</button>
+            <p id="getAll"></p>
+        </div>
+    </div>
+    {% endblock %}
+
+    {% block content %}
+    <div class="row2" id="2">
+        <div class="includeStudent">
+            <h2>Include Student</h2>
+            <label for="name2">Name: </label>
+            <input type="text" id="name2" />
+            <br><br>
+            <label for="grade2">Grade: </label>
+            <input type="text" id="grade2" />
+            <br><br>
+            <button type="submit" onclick="includeStudent()">Add record</button>
+            <p id="record"></p>
+        </div>
+        {% endblock %}
+
+        {% block content %}
+        <div class="edit">
+            <h2>Edit Student Grade</h2>
+            <label for="name3">Name: </label>
+            <input type="text" id="name3" />
+            <br><br>
+            <label for="grade3">New Grade: </label>
+            <input type="text" id="grade3" />
+            <br><br>
+            <button type="submit" onclick="edit()">Edit Record</button>
+            <p id="grade"></p>
+        </div>
+    </div>
+    {% endblock %}
+
+    {% block content %}
+    <div class="row3">
+        <div>
+            <h2>Delete Student Grade</h2>
+            <label for="name4">Name: </label>
+            <input type="text" id="name4" />
+            <br><br>
+            <button type="submit" onclick="deleteStudent()">Delete Record</button>
+            <p id="delete"></p>
+        </div>
+    </div>
+    {% endblock %}
+</body>
+
+</html>
