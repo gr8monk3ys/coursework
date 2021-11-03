@@ -1,19 +1,16 @@
 import json
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 
 app = Flask(__name__)
-
 
 @app.route('/')
 def home():
     return render_template('home.html')
 
-
 @app.route('/', methods=['GET'])
 def gather_data():
-    f = requests.get('https://amhep.pythonanywhere.com')
+    f = request.get('http://127.0.0.1:5000/')
     return f.text
-
 
 @app.route('/', methods=['GET'])
 def search():
@@ -27,7 +24,6 @@ def search():
             return jsonify(record)
     return jsonify({'error': 'name not found'})
 
-
 @app.route('/', methods=['GET'])
 def get():
     file = gather_data()
@@ -35,7 +31,6 @@ def get():
     records = json.loads(data)
     for record in records:
         return jsonify(record)
-
 
 @app.route('/', methods=['PUT'])
 def edit():
@@ -52,7 +47,6 @@ def edit():
         file.write(json.dumps(new_records, indent=2))
     return jsonify(record)
 
-
 @app.route('/', methods=['POST'])
 def includeStudent():
     record = json.loads(request.data)
@@ -68,7 +62,6 @@ def includeStudent():
     file.write(json.dumps(records, indent=2))
     return jsonify(record)
 
-
 @app.route('/', methods=['DELETE'])
 def delete():
     record = json.loads(request.data)
@@ -83,7 +76,6 @@ def delete():
     file = gather_data()
     file.write(json.dumps(new_records, indent=2))
     return jsonify(record)
-
 
 if __name__ == '__main__':
     app.run(debug=True)
