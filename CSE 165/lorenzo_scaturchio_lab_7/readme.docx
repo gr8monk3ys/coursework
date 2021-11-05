@@ -1,11 +1,11 @@
 ## Question 1
 
-cd ../question\ 1/ ; g++ newArr.cpp -o newArr ; ./newArr
+cd ../question\ 1/ ; g++ printArr.cpp -o printArr ; ./printArr
 
 ## Question 2
 
-cd ../question\ 2/ ; g++ fibonacci.cpp -o fibonacci ; ./fibonacci
+cd ../question\ 2/ ; g++ bird.cpp -o bird ; ./bird
 
 ## Question 3
 
-cd ../question\ 3/ ; g++ arrInt.cpp -o arrInt ; ./arrInt
+cd ../question\ 3/ ; g++ templateArr.cpp -o templateArr ; ./templateArr
