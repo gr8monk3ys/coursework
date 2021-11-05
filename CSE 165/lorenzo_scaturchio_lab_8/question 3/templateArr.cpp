@@ -16,13 +16,13 @@ public:
     }
     friend ostream&
         operator<<(ostream& ostream, const Arr<type, num>& vec) {
-        int j = 0;
-        while (j < num) {
-            ostream << vec.arr[j];
-            if (j != num - 1) {
+        int i = 0;
+        while (i < num) {
+            ostream << vec.arr[i];
+            if (i != num - 1) {
                 ostream << ", ";
             }
-            j++;
+            i++;
         }
         ostream << endl;
         return ostream;
@@ -30,12 +30,12 @@ public:
 
     friend istream&
         operator>>(istream& istream, Arr<type, num>& vec) {
-            int j = 0;
-            while(j < num){
-                istream >> vec.arr[j];
-                j++;
+            int i = 0;
+            while(i < num){
+                istream >> vec.arr[i];
+                i++;
             }
-            istream >> vec.arr[j];
+            istream >> vec.arr[i];
         return istream;
     }
 };
