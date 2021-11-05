@@ -9,27 +9,27 @@ class Bird {
 public:
     Bird() {
         ostringstream ss;
-        ss << "Bird #" << count++;
+        ss << "Bird #" << count++ << ": ";
         name = ss.str();
-        cout << name << ": Constructor" << endl;
+        cout << name << "Constructor" << endl;
         countObj();
     }
 
     Bird(const Bird& b2) {
         name = b2.name;
         count++;
-        cout << name << ": Copy constructor" << endl;
+        cout << name << "Copy constructor" << endl;
         countObj();
     }
 
     ~Bird() {
         count--;
-        cout << name << ": Destructor" << endl;
+        cout << name << "Destructor" << endl;
         countObj();
     }
 
     Bird& operator=(const Bird& right) {
-        cout << name << ": Operator" << endl;
+        cout << name << "Operator" << endl;
 
         if (this == &right) {
             return *this;
