@@ -1,7 +1,6 @@
 import sqlite3
 from sqlite3 import Error
 
-
 def openConnection(_dbFile):
     print("++++++++++++++++++++++++++++++++++")
     print("Open database: ", _dbFile)
@@ -16,6 +15,7 @@ def openConnection(_dbFile):
     print("++++++++++++++++++++++++++++++++++")
 
     return conn
+
 
 def closeConnection(_conn, _dbFile):
     print("++++++++++++++++++++++++++++++++++")
@@ -49,11 +49,12 @@ def createTable(_conn):
         print(e)
 
     print("++++++++++++++++++++++++++++++++++")
- 
+
 
 def dropTable(_conn):
     print("++++++++++++++++++++++++++++++++++")
     print("Drop tables")
+
     try:
         sql = "drop table warehouse"
         _conn.execute(sql)
@@ -80,9 +81,7 @@ def populateTable(_conn):
     try:
 
         # Warehouse ID StartV
-        idSql = """select s_name
-                    from supplier
-                    """
+        idSql = """select s_name from supplier"""
         cur = _conn.cursor()
         cur.execute(idSql)
         rows = cur.fetchall()
@@ -90,27 +89,28 @@ def populateTable(_conn):
         for row in rows:
             tmpPopTableHolder.update({"w_warehousekey": i, 'w_suppkey': id})
             tmpPopTableHolder_copy = tmpPopTableHolder.copy()
+            # print(tmpPopTableHolder)
             listTmpPopTableHolder.append(tmpPopTableHolder_copy)
-            i += 1
+            i = i + 1
             tmpPopTableHolder.update({"w_warehousekey": i, 'w_suppkey': id})
             tmpPopTableHolder_copy = tmpPopTableHolder.copy()
             listTmpPopTableHolder.append(tmpPopTableHolder_copy)
 
-            i += 1
-            id += 1
+            i = i + 1
+            id = id + 1
         # WareHouse ID Finish^
         # WareHouse Nation Start V
         id = 0
         for row in rows:
             nameSql = """select n_name, count(l_linenumber) as totalNum, n_nationkey from lineitem
-                        inner join customer on c_custkey is o_custkey
-                        inner join nation on n_nationkey is c_nationkey
-                        inner join orders on o_orderkey is l_orderkey
-                        inner join supplier on s_suppkey is l_suppkey
-                        where c_nationkey = n_nationkey and s_name = '{}'
+                        inner join customer on c_custkey = o_custkey
+                        inner join orders on o_orderkey = l_orderkey
+                        inner join supplier on s_suppkey = l_suppkey
+                        inner join nation on n_nationkey = c_nationkey 
+                        where s_name = '{}'
                         group by n_name
-                        order by totalNum desc, n_name asc limit 2
-                        """.format(row[0])
+                        order by totalNum desc, n_name asc
+                        limit 2""".format(row[0])
             cur2 = _conn.cursor()
             cur2.execute(nameSql)
             rows2 = cur2.fetchall()
@@ -122,16 +122,16 @@ def populateTable(_conn):
         # WareHouse Nation End ^
         # WareHouse Capacity Begins V
         for row in rows:
-            capacitySql = """with nTotal as(select n_name,  s_name, sum(p_size) as totalSize from part
-                            inner join customer on c_custkey is o_custkey
-                            inner join nation on n_nationkey is c_nationkey
-                            inner join supplier on s_suppkey is l_suppkey
-                            inner join orders on o_orderey is l_orderkey
-                            inner join lineitem on l_parkey is p_partkey
-                            where s_name is '{}'
+            capacitySql = """with nTotal as(
+                            select n_name,  s_name, sum(p_size) as totalSize from lineitem
+                            inner join nation on c_nationkey = n_nationkey
+                            inner join customer on c_custkey = o_custkey
+                            inner join orders on o_orderkey = l_orderkey
+                            inner join supplier on s_suppkey = l_suppkey
+                            inner join part on p_partkey = l_partkey 
+                            where s_name = '{}'
                             group by n_name, s_name)
-                            select max(nTotal.totalSize) * 2 as DoubleMaxTotalPartSize
-                            from nTotal;""".format(row[0])
+                            select max(nTotal.totalSize) * 2 as DoubleMaxTotalPartSize from nTotal;""".format(row[0])
             cur3 = _conn.cursor()
             cur3.execute(capacitySql)
             rows3 = cur3.fetchall()
@@ -166,6 +166,10 @@ def populateTable(_conn):
 def Q1(_conn):
     print("++++++++++++++++++++++++++++++++++")
     print("Q1")
+
+    Q1Output = open("output/1.out", "w")
+    Q1Write = open("output/1.out", "w")
+
     try:
         sql = """select w_warehousekey as wId, w_name as wName, w_capacity as wCap, w_suppkey as sId, w_nationkey as nId from warehouse
                 group by w_warehousekey;"""
@@ -174,25 +178,32 @@ def Q1(_conn):
         header = '{:>10} {:<40} {:<17} {:<10} {:<10}'.format(
             "wId", "wName", "wCap", "sId", "nId")
         print(header)
+        Q1Write.write(header + '\n')
         rows = cursor.fetchall()
         for row in rows:
             data = '{:>10} {:<40} {:<10} {:>10} {:>10}'.format(
                 row[0], row[1], row[2], row[3], row[4])
             print(data)
+            Q1Write.write(data + '\n')
 
     except Error as e:
         _conn.rollback()
         print(e)
 
+    Q1Write.close()
     print("++++++++++++++++++++++++++++++++++")
 
 
 def Q2(_conn):
     print("++++++++++++++++++++++++++++++++++")
     print("Q2")
+
+    Q2Output = open("output/2.out", "w")
+    Q2Write = open("output/2.out", "w")
+
     try:
-        sql = """select n_name, COUNT(w_warehousekey), SUM(w_capacity) from nation, warehouse
-                    where w_nationkey is n_nationkey
+        sql = """select n_name, count(w_warehousekey), sum(w_capacity) from warehouse
+                    inner join nation on n_nationkey = w_nationkey
                     group by n_name
                     order by count(w_warehousekey) desc, n_name asc"""
         cursor = _conn.cursor()
@@ -200,15 +211,19 @@ def Q2(_conn):
         header = '{:<20} {:>10} {:>10}'.format(
             "nation", "numW", "totCap")
         print(header)
+        Q2Write.write(header + '\n')
         rows = cursor.fetchall()
         for row in rows:
             data = '{:<20} {:>10} {:>10}'.format(
                 row[0], row[1], row[2])
             print(data)
+            Q2Write.write(data + '\n')
 
     except Error as e:
         _conn.rollback()
         print(e)
+
+    Q2Write.close()
 
     print("++++++++++++++++++++++++++++++++++")
 
@@ -216,28 +231,36 @@ def Q2(_conn):
 def Q3(_conn):
     print("++++++++++++++++++++++++++++++++++")
     print("Q3")
+
+    Q3Output = open("output/3.out", "w")
+    Q3Write = open("output/3.out", "w")
+
+    input = open("input/3.in", "r")
+    dataList = input.read().splitlines()
+
     try:
-        sql = """select s_name, n2.n_name, w_name
-                    from supplier, nation as n1, warehouse, nation as n2
-                    where w_nationkey is n1.n_nationkey
-                    and n1.n_name is 'JAPAN'
-                    and s_suppkey is w_suppkey
-                    and s_nationkey is n2.n_nationkey
+        sql = """select s_name, n2.n_name, w_name from supplier, nation as n1, warehouse, nation as n2
+                    where w_nationkey = n1.n_nationkey and n1.n_name = '{}' and s_suppkey = w_suppkey
+                    and s_nationkey = n2.n_nationkey
                     group by s_name
-                    order by s_name ASC"""
+                    order by s_name asc""".format(dataList[0])
         cursor = _conn.cursor()
         cursor.execute(sql)
         header = '{:<20} {:<20} {:<10}'.format(
             'supplier', 'nation', 'warehouse')
         print(header)
+        Q3Write.write(header + '\n')
         rows = cursor.fetchall()
         for row in rows:
             data = '{:<20} {:<20} {:<10}'.format(
                 row[0], row[1], row[2])
             print(data)
+            Q3Write.write(data + '\n')
     except Error as e:
         _conn.rollback()
         print(e)
+
+    Q3Write.close()
 
     print("++++++++++++++++++++++++++++++++++")
 
@@ -245,28 +268,37 @@ def Q3(_conn):
 def Q4(_conn):
     print("++++++++++++++++++++++++++++++++++")
     print("Q4")
+
+    Q4Output = open("output/4.out", "w")
+    Q4Write = open("output/4.out", "w")
+
+    input = open("input/4.in", "r")
+    dataList = input.read().splitlines()
+
     try:
-        sql = """select w_name, w_capacity
-                    from warehouse, nation, region
-                    where w_nationkey is n_nationkey
-                    and n_regionkey is r_regionkey
-                    and r_name = 'ASIA' 
-                    and w_capacity > 2000
+        sql = """select w_name, w_capacity from warehouse
+                    inner join nation on n_nationkey = w_nationkey
+                    inner join region on r_regionkey = n_regionkey
+                    where r_name = '{}' and w_capacity > {}
                     group by w_name
-                    order by w_capacity desc"""
+                    order by w_capacity desc""".format(dataList[0], dataList[1])
         cursor = _conn.cursor()
         cursor.execute(sql)
         header = '{:<10} {:>30}'.format(
             'warehouse', 'capacity',)
         print(header)
+        Q4Write.write(header + '\n')
         rows = cursor.fetchall()
         for row in rows:
             data = '{:<36} {:<20}'.format(
                 row[0], row[1])
             print(data)
+            Q4Write.write(data + '\n')
     except Error as e:
         _conn.rollback()
         print(e)
+
+    Q4Write.close()
 
     print("++++++++++++++++++++++++++++++++++")
 
@@ -274,38 +306,49 @@ def Q4(_conn):
 def Q5(_conn):
     print("++++++++++++++++++++++++++++++++++")
     print("Q5")
+
+    Q5Output = open("output/5.out", "w")
+    Q5Write = open("output/5.out", "w")
+
+    input = open("input/5.in", "r")
+    dataList = input.read().splitlines()
+
     try:
-        sql = """with regionTotalCapacity as(select r_name as name, SUM(w_capacity) as sumCap from nation as n1, warehouse, nation as n2, region
-                    inner join supplier on s_suppkey is w_suppkey 
-                    where w_nationkey is n1.n_nationkey
-                    and n2.n_name is 'UNITED STATES' --this needs to be changed
-                    and s_nationkey is n2.n_nationkey
-                    and n1.n_regionkey is r_regionkey
+        sql = """with regionTotalCapacity as(
+                    select r_name as name, sum(w_capacity) as sumCap from nation as n1, warehouse, nation as n2, region
+                    inner join supplier on s_suppkey = w_suppkey
+                    where w_nationkey = n1.n_nationkey
+                    and s_nationkey = n2.n_nationkey
+                    and n2.n_name = '{}'
+                    and n1.n_regionkey = r_regionkey
                     group by r_name)
-                    
                     select r_name, case when regionTotalCapacity.sumCap > 0 then regionTotalCapacity.sumCap else 0 end from region
-                    left join regionTotalCapacity on r_name is regionTotalCapacity.name
+                    left join regionTotalCapacity on r_name = regionTotalCapacity.name
                     group by r_name
-                    order by r_name asc"""
+                    order by r_name asc""".format(dataList[0])
         cursor = _conn.cursor()
         cursor.execute(sql)
         header = '{:<15} {:>10}'.format(
             'region', 'capacity',)
         print(header)
+        Q5Write.write(header + '\n')
         rows = cursor.fetchall()
         for row in rows:
             data = '{:<15} {:>10}'.format(
                 row[0], row[1])
             print(data)
+            Q5Write.write(data + '\n')
     except Error as e:
         _conn.rollback()
         print(e)
+
+    Q5Write.close()
 
     print("++++++++++++++++++++++++++++++++++")
 
 
 def main():
-    database = r`"tpch.sqlite"
+    database = r"tpch.sqlite"
 
     # create a database connection
     conn = openConnection(database)
