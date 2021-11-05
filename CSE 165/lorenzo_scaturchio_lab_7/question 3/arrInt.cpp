@@ -1,19 +1,34 @@
 #include <iostream>
-#include <cassert>
 using namespace std;
 
 class ArrHold {
-static int var = 5;
-static const int[] arr = [var];
+    static const int size = 6;
+    const int val;
+    static int number;
+    int arr[size] = {0,1,2,3,4,5};
+public:
+    ArrHold() : val(20) {}
 
-ArrHold() {const int }
+    static void printNum() {
+        cout << "static int: " << number << endl;
+    }
 
-print() {cout << arr << endl;}
-
+    inline void printArr() {
+        cout << "Array: ";
+        int i = 0;
+        while (i < size) {
+            cout << arr[i] << ' ';
+            i++;
+        }
+        cout << endl;
+        printNum();
+    }
 };
 
+int ArrHold::number = 12;
+
 int main() {
-
-ArrHold arr;
-
+    ArrHold a;
+    a.printArr();
+    return 0;
 }
