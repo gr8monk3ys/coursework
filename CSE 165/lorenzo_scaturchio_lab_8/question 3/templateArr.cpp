@@ -15,10 +15,10 @@ public:
         return arr[x];
     }
     friend ostream&
-        operator<<(ostream& ostream, const Arr<type, num>& ia) {
+        operator<<(ostream& ostream, const Arr<type, num>& vec) {
         int j = 0;
         while (j < num) {
-            ostream << ia.arr[j];
+            ostream << vec.arr[j];
             if (j != num - 1) {
                 ostream << ", ";
             }
@@ -29,14 +29,14 @@ public:
     }
 
     friend istream&
-        operator>>(istream& is, Arr<type, num>& ia) {
+        operator>>(istream& istream, Arr<type, num>& vec) {
             int j = 0;
             while(j < num){
-                is >> ia.arr[j];
+                istream >> vec.arr[j];
                 j++;
             }
-            is >> ia.arr[j];
-        return is;
+            istream >> vec.arr[j];
+        return istream;
     }
 };
 
