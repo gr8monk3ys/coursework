@@ -38,35 +38,7 @@ public:
             is >> ia.arr[j];
         return is;
     }
-
-#if 0
-    friend ostream&
-        operator<<(ostream& ostream, const Arr<type, num>& ia);
-    friend istream&
-        operator>>(istream& is, Arr<type, num>& ia);
-#endif
 };
-
-#if 0
-template<typename type, size_t num>
-ostream&
-operator<<(ostream& ostream, const Arr<type, num>& ia) {
-    for (int j = 0; j < num; j++) {
-        ostream << ia.arr[j];
-        if (j != num - 1)
-            ostream << ", ";
-    }
-    ostream << endl;
-    return ostream;
-}
-
-template<typename type, size_t num>
-istream& operator>>(istream& is, Arr<type, num>& ia) {
-    for (int j = 0; j < num; j++)
-        is >> ia.arr[j];
-    return is;
-}
-#endif 
 
 int main() {
     stringstream input("3 1 4 1 5");
