@@ -33,6 +33,24 @@ def closeConnection(_conn, _dbFile):
 def create_View1(_conn):
     print("++++++++++++++++++++++++++++++++++")
     print("Create V1")
+    try:
+        sql = """create view V1(
+                    c_custkey decimal(9,0) not null,
+                    c_name char(100) not null,
+                    c_address decimal(6,0) not null,
+                    c_phone decimal(9,0) not null,
+                    c_acctbal decimal(2,0) not null,
+                    c_mktsegment decimal() not null,
+                    c_comment char(25) not null,
+                    c_nation char(25) not null,
+                    c_region char(25) not null)"""
+        _conn.execute(sql)
+
+        _conn.commit()
+        print("success")
+    except Error as e:
+        _conn.rollback()
+        print(e)
 
     print("++++++++++++++++++++++++++++++++++")
 
@@ -40,6 +58,23 @@ def create_View1(_conn):
 def create_View2(_conn):
     print("++++++++++++++++++++++++++++++++++")
     print("Create V2")
+    try:
+        sql = """create view V2(
+                    s_suppkey decimal(9,0) not null,
+                    s_name char(100) not null,
+                    s_address decimal(6,0) not null,
+                    s_phone decimal(9,0) not null,
+                    s_acctbal decimal(2,0) not null,
+                    s_comment decimal() not null,
+                    s_nation char(25) not null,
+                    s_region char(25) not null)"""
+        _conn.execute(sql)
+
+        _conn.commit()
+        print("success")
+    except Error as e:
+        _conn.rollback()
+        print(e)
 
     print("++++++++++++++++++++++++++++++++++")
 
