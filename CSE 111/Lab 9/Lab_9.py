@@ -17,6 +17,7 @@ def openConnection(_dbFile):
 
     return conn
 
+
 def closeConnection(_conn, _dbFile):
     print("++++++++++++++++++++++++++++++++++")
     print("Close database: ", _dbFile)
@@ -82,6 +83,24 @@ def create_View2(_conn):
 def create_View5(_conn):
     print("++++++++++++++++++++++++++++++++++")
     print("Create V5")
+    try:
+        sql = """create view V5(
+                    o_orderkey decimal(9,0) not null,
+                    o_custkey char(100) not null,
+                    o_orderstatus decimal(6,0) not null,
+                    o_totalprice decimal(9,0) not null,
+                    o_orderyear decimal(2,0) not null,
+                    o_orderpriority decimal() not null,
+                    o_clerk char(25) not null,
+                    o_shippriority char(25) not null
+                    o_comment char(25) not null)"""
+        _conn.execute(sql)
+
+        _conn.commit()
+        print("success")
+    except Error as e:
+        _conn.rollback()
+        print(e)
 
     print("++++++++++++++++++++++++++++++++++")
 
@@ -110,7 +129,34 @@ def create_View152(_conn):
 def Q1(_conn):
     print("++++++++++++++++++++++++++++++++++")
     print("Q1")
+    Q1Output = open("output/1.out", "w")
+    Q1Write = open("output/1.out", "w")
 
+    try:
+        sql = """select n_name, count(o_orderkey) from orders
+                inner join region on r_regionkey is n_regionkey
+                inner join nation on n_nationkey is c_nationkey
+                inner join customer on c_custkey is o_custkey
+                where r_name is 'AMERICA'
+                group by n_name;"""
+        cursor = _conn.cursor()
+        cursor.execute(sql)
+        header = '{:>10} {:<40} {:<17} {:<10} {:<10}'.format(
+            "wId", "wName", "wCap", "sId", "nId")
+        print(header)
+        Q1Write.write(header + '\n')
+        rows = cursor.fetchall()
+        for row in rows:
+            data = '{:>10} {:<40} {:<10} {:>10} {:>10}'.format(
+                row[0], row[1], row[2], row[3], row[4])
+            print(data)
+            Q1Write.write(data + '\n')
+
+    except Error as e:
+        _conn.rollback()
+        print(e)
+
+    Q1Write.close()
     print("++++++++++++++++++++++++++++++++++")
 
 
