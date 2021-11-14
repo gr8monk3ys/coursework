@@ -3,6 +3,12 @@ from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///example.sqlite" 
+db = SQLAlchemy(app)
+
+class Student(db.model):
+    name = db.Column(db.String, primary_key=True)
+    grade = db.Column(db.Integer, unique=True, nullable=False)
 
 @app.route('/')
 def home():
@@ -61,7 +67,7 @@ def includeStudent():
     return jsonify(record)
 
 @app.route('/', methods=['DELETE'])
-def delte_record():
+def delete_record():
     record = json.loads(request.data)
     new_records = []
     with open('/tmp/data.txt', 'r') as f:
