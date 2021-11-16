@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+   <div class="add_record">
+      <h2>Add Student</h2>
+      <form action="{{ url_for('add') }}" method="POST">
+         <input type="text" name="name" placeholder="Name" id="name2" /><br>
+         <input type="text" name="grade" placeholder="Grade" id="grade2" /><br>
+         <input type="submit" value="submit" placeholder="Add" /><br>
+      </form>
+   </div>
+</body>
+
+</html>
