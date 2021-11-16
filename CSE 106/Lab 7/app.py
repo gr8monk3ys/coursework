@@ -3,38 +3,43 @@ from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///example.sqlite" 
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///students.sqlite"
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 
 class Student(db.model):
-    name = db.Column(db.String, primary_key=True)
-    grade = db.Column(db.Integer, unique=True, nullable=False)
+    name = db.Column("name", db.String, primary_key=True)
+    grade = db.Column("grade", db.Integer, unique=True, nullable=False)
+
+    def __init__(self, name, grade):
+        self.name = name
+        self.grade = grade
+
 
 @app.route('/')
 def home():
     return render_template('home.html')
 
-@app.route('/', methods=['GET'])
+@app.route('/grades', methods=['GET'])
 def gather_data():
-    f = requests.get('https://amhep.pythonanywhere.com')
-    return f.text
+    cur = mysql.connection.cursor()
+    resultValue = cur.execute("SELECT * FROM student_grades")
+    if resultValue > 0:
+        student = cur.fetchall()
+        return jsonify(student)
+    else:
+        return jsonify({"message": "Data Not Found"})
 
 @app.route('/', methods=['GET'])
-def search():
-    name = request.args.get('name')
-    print(name)
-    file = gather_data()
-    data = file.read()
-    records = json.loads(data)
-    for record in records:
-        if record['name'] == name:
-            return jsonify(record)
-    return jsonify({'error': 'name not found'})
-
-# @app.route('/', methods=['GET'])
-# def get():
-
-#     return
+def search(name):
+    if request.method == 'GET':
+        cur = mysql.connection.cursor()
+        resultValue = cur.execute("SELECT * FROM student_grades where NAME = %s", [name])
+        if resultValue > 0:
+            student = cur.fetchall()
+            return jsonify(student)
+        else:
+            return jsonify({"message": "Data Not Found"})
 
 @app.route('/', methods=['PUT'])
 def edit():
@@ -52,7 +57,7 @@ def edit():
     return jsonify(record)
 
 @app.route('/', methods=['POST'])
-def includeStudent():
+def addStudent():
     record = json.loads(request.data)
     file = gather_data()
     data = file.read()
@@ -82,4 +87,5 @@ def delete_record():
     return jsonify(record)
 
 if __name__ == '__main__':
+    db.create_all()
     app.run(debug=True)
