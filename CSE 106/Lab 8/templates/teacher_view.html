@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Student Portal</title>
+</head>
+
+<body>
+    <main id="main-holder">
+
+        <h3>Welcome {{ teacher }}!</h3>
+        <h1 class="header">ACME University</h1>
+        <h3><a href="{{ url_for('/logout') }}">Sign Out</a></h3>
+
+        <div id="teacher-panel">
+            <table>
+
+                <head>
+                    <tr>
+                        <th>Course Name</th>
+                        <th>Teacher</th>
+                        <th>Time</th>
+                        <th>Students Enrolled</th>
+                    </tr>
+                </head>
+                <tbody>
+                    {% for course in courses %}
+                    <tr>
+                        <td><a href="{{ url_for('/teacher-view/<course>') }}" /></td>
+                        <td>{{ course.teacher }}</td>
+                        <td>{{ course.time }}</td>
+                        <td>{{ course.students }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </main>
+</body>
+
+</html>
