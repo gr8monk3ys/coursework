@@ -1,6 +1,4 @@
 body {
-    height: 100vh;
-    display: flex;
     align-items: center;
     justify-content: center;
     background-color:  linear-gradient(#4f6d7a, #dbe9ee);
