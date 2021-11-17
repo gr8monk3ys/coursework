@@ -24,7 +24,7 @@ def load_user(user_id):
 
 class Student(db.Model):
     __tablename__ = 'student'
-    id = db.Column('id', db.String(100), primary_key=True)
+    id = db.Column('id', db.Integer, primary_key=True)
     name = db.Column('name', db.String(20))
     user_id = db.Column('user_id', db.Integer)
 
@@ -47,7 +47,7 @@ class User(db.Model, UserMixin):
 class Teacher(db.Model):
     __tablename__ = 'teacher'
     id = db.Column('id', db.Integer, primary_key=True)
-    name = db.Column('name', db.Integer)
+    name = db.Column('name', db.String(20))
     user_id = db.Column('user_id', db.Integer)
 
     def __init__(self, id, name, user_id):
