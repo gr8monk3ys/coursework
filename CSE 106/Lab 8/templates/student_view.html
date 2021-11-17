@@ -19,9 +19,7 @@
             </ul>
             <div class="panel-group">
                 <div class="panel tab-A is-show">
-                    Content-A
                     <table>
-
                         <head>
                             <tr>
                                 <th>Course Name</th>
@@ -43,9 +41,7 @@
                     </table>
                 </div>
                 <div class="panel tab-B">
-                    Content-B
                     <table>
-
                         <head>
                             <tr>
                                 <th>Course Name</th>
@@ -56,7 +52,7 @@
                             </tr>
                         </head>
                         <tbody>
-                            {% for student in students %}
+                            {% for course in courses %}
                             <tr>
                                 <td>{{ course.name }}</td>
                                 <td>{{ course.teacher }}</td>
