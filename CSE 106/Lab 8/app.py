@@ -25,7 +25,7 @@ def load_user(user_id):
 class Student(db.Model):
     __tablename__ = 'student'
     id = db.Column('id', db.String(100), primary_key=True)
-    name = db.Column('name', db.Integer)
+    name = db.Column('name', db.String(20))
     user_id = db.Column('user_id', db.Integer)
 
     def __init__(self, id, name, user_id):
@@ -71,9 +71,9 @@ class Enrollment(db.Model):
 class Class(db.Model):
     __tablename__ = 'class'
     id = db.Column('id', db.Integer, primary_key=True)
-    course_name = db.Column('course_name', db.String(100), primary_key=True)
-    teacher_id = db.Column('teacher_id', db.Integer, primary_key=True)
-    num_enrolled = db.Column('num_enrolled', db.Integer, primary_key=True)
+    course_name = db.Column('course_name', db.String(100))
+    teacher_id = db.Column('teacher_id', db.Integer)
+    num_enrolled = db.Column('num_enrolled', db.Integer)
 
     def __init__(self, id, course_name, teacher_id, num_enrolled):
         self.id = id
@@ -130,14 +130,14 @@ def logout():
     logout_user()
     return 'Logged out'
 
-@app.route("/student/<tab>", methods=['GET', 'POST'])
+@app.route("/student-view/", methods=['GET', 'POST'])
 def student_view():
-    return
+    return render_template('student_view.html')
 
 @app.route("/teacher-view", methods=['GET', 'POST', 'PUT'])
 def teacher_view():
     """Allows teachers to view their current courses and general logistics"""
-    return
+    return render_template('teacher_view.html')
 
 @app.route("/teacher-view/<course>", methods=['GET', 'POST', 'PUT'])
 def edit_course():
@@ -158,9 +158,9 @@ def build_df():
 
 if __name__ == "__main__":
 
-    # db.create_all()
-    # me = User(id=1, username="Lorenzo", password="hello") 
-    # db.session.add(me)
-    # db.session.commit()
-    #df = build_df()
+    db.create_all()
+    me = User(id=1, username="Lorenzo", password="hello") 
+    db.session.add(me)
+    db.session.commit()
+    df = build_df()
     app.run(debug = True)
