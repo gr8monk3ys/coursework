@@ -1,7 +1,9 @@
 from flask import Flask, request, flash, url_for, redirect, render_template, session
 from flask_admin.contrib.sqla import ModelView
 from flask_sqlalchemy import SQLAlchemy
+from flask_admin.contrib.sqla import ModelView
 from flask_admin import Admin
+from flask_login import UserMixin
 import pandas as pd
 import numpy as np
 
@@ -36,11 +38,11 @@ class Student(db.Model):
         self.name = name
         self.user_id = user_ids
 
-class User(db.Model):
+class User(db.Model, UserMixin):
     __tablename__ = 'user'
     id = db.Column('id', db.Integer, primary_key=True)
-    username = db.Column('username', db.String(100))
-    password = db.Column('password', db.String(100))
+    username = db.Column('username', db.String(20))
+    password = db.Column('password', db.String(20))
 
     def __init__(self, id, username, password):
         self.id = id
@@ -141,16 +143,18 @@ def build_df():
     students = df[["D"]].to_numpy()
     grades = df[["E"]].to_numpy()
 
-
+admin = Admin(app, name='microblog', template_mode='bootstrap3')
+admin.add_view(ModelView(User, db.session))
 
 if __name__ == "__main__":
-    #admin = Admin(app, name='microblog', template_mode='bootstrap3')
 
-    #db.create_all()
+    # db.create_all()
+    # me = User(id=1, username="Lorenzo", password="hello") 
+    # db.session.add(me)
+    # db.session.commit()
     #df = build_df()
 
     #admin.add_view(ModelView(Student, db.session))
-    #admin.add_view(ModelView(User, db.session))
     #admin.add_view(ModelView(Teacher, db.session))
     #admin.add_view(ModelView(Enrollment, db.session))
     #admin.add_view(ModelView(Class, db.session))
