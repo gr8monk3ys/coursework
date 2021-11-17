@@ -158,9 +158,9 @@ def build_df():
 
 if __name__ == "__main__":
 
-    db.create_all()
-    me = User(id=1, username="Lorenzo", password="hello") 
-    db.session.add(me)
-    db.session.commit()
-    df = build_df()
+    # db.create_all()
+    # me = User(id=1, username="Lorenzo", password="hello") 
+    # db.session.add(me)
+    # db.session.commit()
+    # df = build_df()
     app.run(debug = True)
