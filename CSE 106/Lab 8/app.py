@@ -2,8 +2,8 @@ from flask import Flask, request, flash, url_for, redirect, render_template, ses
 from flask_admin.contrib.sqla import ModelView
 from flask_sqlalchemy import SQLAlchemy
 from flask_admin.contrib.sqla import ModelView
-from flask_admin import Admin
-from flask_login import UserMixin
+from flask_admin import Admin, AdminIndexView
+from flask_login import UserMixin, LoginManager, current_user, login_user, logout_user
 import pandas as pd
 import numpy as np
 
@@ -14,18 +14,13 @@ app.config['FLASK_ADMIN_SWATCH'] = 'cerulean'
 app.config['DATABASE_FILE'] = 'enrollment.sqlite3'
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///enrollment.sqlite3"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+
 db = SQLAlchemy(app)
+login = LoginManager(app)
 
-# class MicroBlogModelView(sqla.ModelView):
-#     can_delete = False  # disable model deletion
-#     page_size = 50  # the number of entries to display on the list view
-
-#     def is_accessible(self):
-#         return login.current_user.is_authenticated
-
-#     def inaccessible_callback(self, name, **kwargs):
-#         # redirect to login page if user doesn't have access
-#         return redirect(url_for('login', next=request.url))
+@login.user_loader
+def load_user(user_id):
+    return User.query.get(user_id)
 
 class Student(db.Model):
     __tablename__ = 'student'
@@ -90,30 +85,54 @@ class Class(db.Model):
 def index():
     return render_template('login.html')
 
+class MyModelView(ModelView):
+    def is_accessible(self):
+        return current_user.is_authenticated
+    
+    def inaccessible_callback(self, name, **kwargs):
+        return redirect(url_for('login'))
+
+class MyAdminIndexView9(AdminIndexView):
+    def is_accessible(self):
+        return current_user.is_authenticated
+
+admin = Admin(app, name='Admin Portal', template_mode='bootstrap3')
+admin.add_view(ModelView(Student, db.session))
+admin.add_view(MyModelView(User, db.session))
+admin.add_view(ModelView(Teacher, db.session))
+admin.add_view(ModelView(Enrollment, db.session))
+admin.add_view(ModelView(Class, db.session))
+
 @app.route("/login", methods=['POST', 'GET'])
 def login():
     """Login the current user."""
-    if request.method == 'POST':
-        username = request.form.get('username')
-        password = request.form.get('password')
-        if username == user['username'] and password == password['password']:
-            session['user'] = username
-            return redirect(url_for('/student'))
-        if request.method == 'POST':
-            username = request.form.get('username')
-            password = request.form.get('password')
+    user = User.query.get(1)
+    login_user(user)
+    return 'Logged in!'
+    # if request.method == 'POST':
+    #     username = request.form.get('username')
+    #     password = request.form.get('password')
+    #     if username == user['username'] and password == password['password']:
+    #         session['user'] = username
+    #         return redirect(url_for('/student'))
+    #     if request.method == 'POST':
+    #         username = request.form.get('username')
+    #         password = request.form.get('password')
 
-        else:
-            return "<h1>Wrong username or password</h1>"
-    else:
-        return render_template("login.html")
+    #     else:
+    #         return "<h1>Wrong username or password</h1>"
+    # else:
+    #     return render_template("login.html")
+
+@app.route('/logout')
+def logout():
+    """Helps users to logout"""
+    logout_user()
+    return 'Logged out'
 
 @app.route("/student/<tab>", methods=['GET', 'POST'])
 def student_view():
     return
-
-
-
 
 @app.route("/teacher-view", methods=['GET', 'POST', 'PUT'])
 def teacher_view():
@@ -124,13 +143,6 @@ def teacher_view():
 def edit_course():
     """Allows teachers to be able to edit courses"""
     return
-
-
-@app.route('/logout')
-def logout():
-    """Helps users to logout"""
-    session.pop('user')    
-    return redirect('/login')
 
 def build_df():
     """Populate the database with this function"""
@@ -143,8 +155,6 @@ def build_df():
     students = df[["D"]].to_numpy()
     grades = df[["E"]].to_numpy()
 
-admin = Admin(app, name='microblog', template_mode='bootstrap3')
-admin.add_view(ModelView(User, db.session))
 
 if __name__ == "__main__":
 
@@ -153,10 +163,4 @@ if __name__ == "__main__":
     # db.session.add(me)
     # db.session.commit()
     #df = build_df()
-
-    #admin.add_view(ModelView(Student, db.session))
-    #admin.add_view(ModelView(Teacher, db.session))
-    #admin.add_view(ModelView(Enrollment, db.session))
-    #admin.add_view(ModelView(Class, db.session))
-
     app.run(debug = True)
