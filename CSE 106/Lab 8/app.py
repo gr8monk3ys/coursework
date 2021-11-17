@@ -1,9 +1,7 @@
 from flask import Flask, request, flash, url_for, redirect, render_template, session
-# from flask_admin.contrib.sqla import ModelView
+from flask_admin.contrib.sqla import ModelView
 from flask_sqlalchemy import SQLAlchemy
-
 from flask_admin import Admin
-import SQLAlchemy sqla
 import pandas as pd
 import numpy as np
 
@@ -88,18 +86,21 @@ class Class(db.Model):
 
 @app.route("/")
 def index():
-    return render_template('index.html')
+    return render_template('login.html')
 
 @app.route("/login", methods=['POST', 'GET'])
 def login():
     """Login the current user."""
     if request.method == 'POST':
         username = request.form.get('username')
-        passowrd = request.form.get('password')
-
-        if username == user['username'] and password == passowrd['password']:
+        password = request.form.get('password')
+        if username == user['username'] and password == password['password']:
             session['user'] = username
-            return redirect('/student')
+            return redirect(url_for('/student'))
+        if request.method == 'POST':
+            username = request.form.get('username')
+            password = request.form.get('password')
+
         else:
             return "<h1>Wrong username or password</h1>"
     else:
@@ -108,6 +109,9 @@ def login():
 @app.route("/student/<tab>", methods=['GET', 'POST'])
 def student_view():
     return
+
+
+
 
 @app.route("/teacher-view", methods=['GET', 'POST', 'PUT'])
 def teacher_view():
@@ -129,7 +133,7 @@ def logout():
 def build_df():
     """Populate the database with this function"""
     file = 'enrollment_data.xlsx'
-    df = pd.read_excel(file, index_col=None, na_values=['NA'], usecols ="A:F")
+    #df = pd.read_excel(file, index_col=None, na_values=['NA'], usecols ="A:F")
     courses = df[["A"]].to_numpy()
     db.session.add()
     teachers = df[["B"]].to_numpy()
@@ -139,16 +143,16 @@ def build_df():
 
 
 
-if __name__ == "_main__":
-    admin = Admin(app, name='microblog', template_mode='bootstrap3')
+if __name__ == "__main__":
+    #admin = Admin(app, name='microblog', template_mode='bootstrap3')
 
-    db.create_all()
-    df = build_df()
+    #db.create_all()
+    #df = build_df()
 
-    admin.add_view(ModelView(Student, db.session))
-    admin.add_view(ModelView(User, db.session))
-    admin.add_view(ModelView(Teacher, db.session))
-    admin.add_view(ModelView(Enrollment, db.session))
-    admin.add_view(ModelView(Class, db.session))
+    #admin.add_view(ModelView(Student, db.session))
+    #admin.add_view(ModelView(User, db.session))
+    #admin.add_view(ModelView(Teacher, db.session))
+    #admin.add_view(ModelView(Enrollment, db.session))
+    #admin.add_view(ModelView(Class, db.session))
 
     app.run(debug = True)
