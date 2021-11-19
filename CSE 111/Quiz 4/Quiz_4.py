@@ -34,12 +34,12 @@ def createPriceRange(_conn):
     print("Create PriceRange")
     try:
         sql = """create view PriceRange as 
-            select maker, Product.type, min(price), Max(price) from Product
+            select maker, Product.type, min(price), max(price) from Product
             inner join PC on PC.model = Product.model
             where Product.type = "pc"
             group by Product.maker
             union
-            select maker, Product.type, min(price), Max(price) from Product
+            select maker, Product.type, min(price), max(price) from Product
             inner join Printer on Printer.model = Product.model
             where Product.type = "printer"
             group by Product.maker
@@ -55,12 +55,11 @@ def createPriceRange(_conn):
         print(e)
     print("++++++++++++++++++++++++++++++++++")
 
-
 def printPriceRange(_conn):
     print("++++++++++++++++++++++++++++++++++")
     print("Print PriceRange")
     
-    with _conn:
+    try:
         sql = """select * from PriceRange"""
         cursor = _conn.cursor()
         cursor.execute(sql)
@@ -70,51 +69,95 @@ def printPriceRange(_conn):
         for row in rows:
             data = '{:<10} {:<10} {:>10} {:>10}'.format(row[0], row[1], row[2], row[3])
             print(data)
+    except Error as e:
+        _conn.rollback()
+        print(e)
     print("++++++++++++++++++++++++++++++++++")
-
 
 def insertPC(_conn, _maker, _model, _speed, _ram, _hd, _price):
     print("++++++++++++++++++++++++++++++++++")
     try:
-        sql = """insert into PC values('{}', '{}', '{}', '{}', '{}');""".format(_model, _speed, _ram, _hd, _price)
+        sql = """insert into PC(model, speed, ram, hd, price) values('{}', '{}', '{}', '{}', '{}');""".format(_model, _speed, _ram, _hd, _price)
+        _conn.execute(sql)
+        _conn.commit()
         l = 'Insert PC ({}, {}, {}, {}, {})'.format(_model, _speed, _ram, _hd, _price)
         print(l)
+        sql = """insert into Product(maker, model, type) values({}, {}, {})""".format(_maker, _model, _type)
+        _conn.exectute(sql)
+        _conn.commit()
     except Error as e:
         _conn.rollback()
         print(e)
-
     print("++++++++++++++++++++++++++++++++++")
-
 
 def updatePrinter(_conn, _model, _price):
     print("++++++++++++++++++++++++++++++++++")
+    # try:
+
+    #     sql = """update Printer set Printer.price = {}
+    #             where Printer.model = {};""".format(_price, _model)
+    #     _conn.execute(sql)
+    #     _conn.commit()
+    #     l = 'Update Printer ({}, {})'.format(_model, _price)
+    #     print(l)
+    # except Error as e:
+    #     _conn.rollback()
+    #     print(e)
     try:
-        sql = """update Printer set {} = 30
-                where Printer.model = {};""".format(_price, _model)
-        _conn.execute(sql)
+        sql = """UPDATE Printer
+                    SET price = (?)
+                    WHERE model = (?)"""
+        args = [_price, _model]
+
+        _conn.execute(sql, args)
         _conn.commit()
+
         l = 'Update Printer ({}, {})'.format(_model, _price)
         print(l)
-    except Error as e:
-        _conn.rollback()
+
+    except Error as e:        
+        _conn.rollback()        
         print(e)
 
     print("++++++++++++++++++++++++++++++++++")
-
 
 def deleteLaptop(_conn, _model):
     print("++++++++++++++++++++++++++++++++++")
+    # try:
+    #     sql = """delete from Laptop
+    #             where Laptop.model = {};""".format(_model)
+    #     _conn.execute(sql)
+    #     _conn.commit()
+    #     l = 'Delete Laptop ({})'.format(_model)
+    #     print(l)
+    #     sql = """delete from Product 
+    #              where Product.model = {}""".format(_model)
+    #     _conn.execute(sql)
+    #     _conn.commit()
+    # except Error as e:
+    #     _conn.rollback()
+    #     print(e)
     try:
-        sql = """delete from table Laptop
-                where Laptop.model = {};""".format(_model)
-        _conn.execute(sql)
+        sql = """DELETE FROM Laptop 
+                    WHERE model = (?)"""
+        args = [_model]
+
+        _conn.execute(sql, args)
         _conn.commit()
+
         l = 'Delete Laptop ({})'.format(_model)
         print(l)
-    except Error as e:
-        _conn.rollback()
+
+        sql = """DELETE FROM Product 
+                    WHERE model = (?)"""
+        args = [_model]
+
+        _conn.execute(sql, args)
+        _conn.commit()
+
+    except Error as e:        
+        _conn.rollback()        
         print(e)
-    
     print("++++++++++++++++++++++++++++++++++")
 
 def main():
@@ -144,7 +187,6 @@ def main():
         file.close()
 
     closeConnection(conn, database)
-
 
 if __name__ == '__main__':
     main()
