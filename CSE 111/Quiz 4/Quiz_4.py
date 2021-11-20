@@ -58,7 +58,6 @@ def createPriceRange(_conn):
 def printPriceRange(_conn):
     print("++++++++++++++++++++++++++++++++++")
     print("Print PriceRange")
-    
     try:
         sql = """select * from PriceRange"""
         cursor = _conn.cursor()
@@ -77,7 +76,7 @@ def printPriceRange(_conn):
 def insertPC(_conn, _maker, _model, _speed, _ram, _hd, _price):
     print("++++++++++++++++++++++++++++++++++")
     try:
-        sql = """insert into PC(model, speed, ram, hd, price) values('{}', '{}', '{}', '{}', '{}');""".format(_model, _speed, _ram, _hd, _price)
+        sql = """insert into PC(model, speed, ram, hd, price) values({}, {}, {}, {}, {});""".format(_model, _speed, _ram, _hd, _price)
         _conn.execute(sql)
         _conn.commit()
         l = 'Insert PC ({}, {}, {}, {}, {})'.format(_model, _speed, _ram, _hd, _price)
@@ -92,71 +91,33 @@ def insertPC(_conn, _maker, _model, _speed, _ram, _hd, _price):
 
 def updatePrinter(_conn, _model, _price):
     print("++++++++++++++++++++++++++++++++++")
-    # try:
-
-    #     sql = """update Printer set Printer.price = {}
-    #             where Printer.model = {};""".format(_price, _model)
-    #     _conn.execute(sql)
-    #     _conn.commit()
-    #     l = 'Update Printer ({}, {})'.format(_model, _price)
-    #     print(l)
-    # except Error as e:
-    #     _conn.rollback()
-    #     print(e)
     try:
-        sql = """UPDATE Printer
-                    SET price = (?)
-                    WHERE model = (?)"""
-        args = [_price, _model]
-
-        _conn.execute(sql, args)
+        sql = """update Printer set price = {}
+                where model = {};""".format(_price, _model)
+        _conn.execute(sql)
         _conn.commit()
-
         l = 'Update Printer ({}, {})'.format(_model, _price)
         print(l)
-
-    except Error as e:        
-        _conn.rollback()        
+    except Error as e:
+        _conn.rollback()
         print(e)
-
     print("++++++++++++++++++++++++++++++++++")
 
 def deleteLaptop(_conn, _model):
     print("++++++++++++++++++++++++++++++++++")
-    # try:
-    #     sql = """delete from Laptop
-    #             where Laptop.model = {};""".format(_model)
-    #     _conn.execute(sql)
-    #     _conn.commit()
-    #     l = 'Delete Laptop ({})'.format(_model)
-    #     print(l)
-    #     sql = """delete from Product 
-    #              where Product.model = {}""".format(_model)
-    #     _conn.execute(sql)
-    #     _conn.commit()
-    # except Error as e:
-    #     _conn.rollback()
-    #     print(e)
     try:
-        sql = """DELETE FROM Laptop 
-                    WHERE model = (?)"""
-        args = [_model]
-
-        _conn.execute(sql, args)
+        sql = """delete from Laptop
+                where model = {};""".format(_model)
+        _conn.execute(sql)
         _conn.commit()
-
         l = 'Delete Laptop ({})'.format(_model)
         print(l)
-
-        sql = """DELETE FROM Product 
-                    WHERE model = (?)"""
-        args = [_model]
-
-        _conn.execute(sql, args)
+        sql = """delete from Product 
+                 where model = {}""".format(_model)
+        _conn.execute(sql)
         _conn.commit()
-
-    except Error as e:        
-        _conn.rollback()        
+    except Error as e:
+        _conn.rollback()
         print(e)
     print("++++++++++++++++++++++++++++++++++")
 
