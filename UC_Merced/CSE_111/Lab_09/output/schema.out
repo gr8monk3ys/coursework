@@ -1,0 +1,134 @@
+CREATE TABLE region (
+  r_regionkey  decimal(2,0) not null,
+  r_name       char(25) not null,
+  r_comment    varchar(152)
+);
+CREATE TABLE nation (
+  n_nationkey  decimal(3,0) not null,
+  n_name       char(25) not null,
+  n_regionkey  decimal(2,0) not null,
+  n_comment    varchar(152)
+);
+CREATE TABLE part (
+  p_partkey     decimal(10,0) not null,
+  p_name        varchar(55) not null,
+  p_mfgr        char(25) not null,
+  p_brand       char(10) not null,
+  p_type        varchar(25) not null,
+  p_size        decimal(2,0) not null,
+  p_container   char(10) not null,
+  p_retailprice decimal(6,2) not null,
+  p_comment     varchar(23) not null
+);
+CREATE TABLE supplier (
+  s_suppkey     decimal(8,0) not null,
+  s_name        char(25) not null,
+  s_address     varchar(40) not null,
+  s_nationkey   decimal(3,0) not null,
+  s_phone       char(15) not null,
+  s_acctbal     decimal(7,2) not null,
+  s_comment     varchar(101) not null
+);
+CREATE TABLE partsupp (
+  ps_partkey     decimal(10,0) not null,
+  ps_suppkey     decimal(8,0) not null,
+  ps_availqty    decimal(5,0) not null,
+  ps_supplycost  decimal(6,2) not null,
+  ps_comment     varchar(199) not null
+);
+CREATE TABLE customer (
+  c_custkey     decimal(9,0) not null,
+  c_name        varchar(25) not null,
+  c_address     varchar(40) not null,
+  c_nationkey   decimal(3,0) not null,
+  c_phone       char(15) not null,
+  c_acctbal     decimal(7,2) not null,
+  c_mktsegment  char(10) not null,
+  c_comment     varchar(117) not null
+);
+CREATE TABLE orders (
+  o_orderkey       decimal(12,0) not null,
+  o_custkey        decimal(9,0) not null,
+  o_orderstatus    char(1) not null,
+  o_totalprice     decimal(8,2) not null,
+  o_orderdate      date not null,
+  o_orderpriority  char(15) not null,
+  o_clerk          char(15) not null,
+  o_shippriority   decimal(1,0) not null,
+  o_comment        varchar(79) not null
+);
+CREATE TABLE lineitem (
+  l_orderkey    decimal(12,0) not null,
+  l_partkey     decimal(10,0) not null,
+  l_suppkey     decimal(8,0) not null,
+  l_linenumber  decimal(1,0) not null,
+  l_quantity    decimal(2,0) not null,
+  l_extendedprice  decimal(8,2) not null,
+  l_discount    decimal(3,2) not null,
+  l_tax         decimal(3,2) not null,
+  l_returnflag  char(1) not null,
+  l_linestatus  char(1) not null,
+  l_shipdate    date not null,
+  l_commitdate  date not null,
+  l_receiptdate date not null,
+  l_shipinstruct char(25) not null,
+  l_shipmode     char(10) not null,
+  l_comment      varchar(44) not null
+);
+CREATE VIEW Customer_Info(c_custkey, c_name, c_address, c_phone, c_acctbal, c_mktsegment, c_comment, c_nation, c_region) AS
+                SELECT c_custkey, c_name, c_address, c_phone, c_acctbal, c_mktsegment, c_comment, n_name , r_name
+                FROM customer, nation, region
+                WHERE c_nationkey = n_nationkey AND n_regionkey = r_regionkey
+/* Customer_Info(c_custkey,c_name,c_address,c_phone,c_acctbal,c_mktsegment,c_comment,c_nation,c_region) */;
+CREATE VIEW Supplier_Info(s_suppkey, s_name, s_address, s_phone, s_acctbal, s_comment, s_nation, s_region) AS
+                SELECT s_suppkey, s_name, s_address, s_phone, s_acctbal, s_comment, n_name, r_name
+                FROM supplier, nation, region
+                WHERE s_nationkey = n_nationkey AND n_regionkey = r_regionkey
+/* Supplier_Info(s_suppkey,s_name,s_address,s_phone,s_acctbal,s_comment,s_nation,s_region) */;
+CREATE VIEW Orders_Info(o_orderkey, o_custkey, o_orderstatus, o_totalprice, o_orderyear, o_orderpriority, o_clerk, o_shippriority, o_comment) AS
+                SELECT o_orderkey, o_custkey, o_orderstatus, o_totalprice, o_orderdate, o_orderpriority, o_clerk, o_shippriority, o_comment
+                FROM orders
+/* Orders_Info(o_orderkey,o_custkey,o_orderstatus,o_totalprice,o_orderyear,o_orderpriority,o_clerk,o_shippriority,o_comment) */;
+CREATE VIEW Min_Max_Discount(p_type, min_discount, max_discount) AS
+                SELECT p_type, min(l_discount), max(l_discount)
+                FROM part, lineitem
+                WHERE p_partkey = l_partkey
+                GROUP BY p_type
+/* Min_Max_Discount(p_type,min_discount,max_discount) */;
+CREATE VIEW Customer_Positive_Balance(c_custkey, c_name, c_nationkey, c_acctbal) AS
+                SELECT c_custkey, c_name, c_nationkey, c_acctbal
+                FROM customer
+                WHERE c_acctbal > 0
+/* Customer_Positive_Balance(c_custkey,c_name,c_nationkey,c_acctbal) */;
+CREATE VIEW Supplier_Negative_Balance(s_suppkey, s_name, s_nationkey, s_acctbal) AS
+                SELECT s_suppkey, s_name, s_nationkey, s_acctbal
+                FROM supplier
+                WHERE s_acctbal < 0
+/* Supplier_Negative_Balance(s_suppkey,s_name,s_nationkey,s_acctbal) */;
+CREATE VIEW V1(c_custkey, c_name, c_address, c_phone, c_acctbal, c_mktsegment, c_comment, c_nation, c_region) as
+                select c_custkey, c_name, c_address, c_phone, c_acctbal, c_mktsegment, c_comment, n_name , r_name from nation
+                inner join customer on c_nationkey = n_nationkey
+                inner join region on r_regionkey = n_regionkey
+/* V1(c_custkey,c_name,c_address,c_phone,c_acctbal,c_mktsegment,c_comment,c_nation,c_region) */;
+CREATE VIEW V2(s_suppkey, s_name, s_address, s_phone, s_acctbal, s_comment, s_nation, s_region) as
+                select s_suppkey, s_name, s_address, s_phone, s_acctbal, s_comment, n_name, r_name from nation
+                inner join supplier on s_nationkey = n_nationkey
+                inner join region on r_regionkey = n_regionkey
+/* V2(s_suppkey,s_name,s_address,s_phone,s_acctbal,s_comment,s_nation,s_region) */;
+CREATE VIEW V5(o_orderkey, o_custkey, o_orderstatus, o_totalprice, o_orderyear, o_orderpriority, o_clerk, o_shippriority, o_comment) as
+                select o_orderkey, o_custkey, o_orderstatus, o_totalprice, o_orderdate, o_orderpriority, o_clerk, o_shippriority, o_comment from orders
+/* V5(o_orderkey,o_custkey,o_orderstatus,o_totalprice,o_orderyear,o_orderpriority,o_clerk,o_shippriority,o_comment) */;
+CREATE VIEW V10(p_type, min_discount, max_discount) as
+                select p_type, min(l_discount), max(l_discount) from lineitem
+                inner join part on p_partkey = l_partkey
+                group by p_type
+/* V10(p_type,min_discount,max_discount) */;
+CREATE VIEW V151(c_custkey, c_name, c_nationkey, c_acctbal) as
+                select c_custkey, c_name, c_nationkey, c_acctbal
+                from customer
+                where c_acctbal > 0
+/* V151(c_custkey,c_name,c_nationkey,c_acctbal) */;
+CREATE VIEW V152(s_suppkey, s_name, s_nationkey, s_acctbal) as
+                select s_suppkey, s_name, s_nationkey, s_acctbal from supplier
+                where s_acctbal < 0
+/* V152(s_suppkey,s_name,s_nationkey,s_acctbal) */;

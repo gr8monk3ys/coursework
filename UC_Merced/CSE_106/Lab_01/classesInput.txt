@@ -1,0 +1,25 @@
+3
+CSE
+030
+Data Structures
+4
+Monday, Wednesday
+4:30pm
+5:45pm
+85
+CSE
+165
+Introduction to Object Oriented Programming 
+4
+Tuesday, Thursday 
+9:00am
+10:15am 
+87
+BIO
+101
+Introduction to Biology
+3 
+Tuesday, Thursday 
+11:00am
+12:15pm
+91

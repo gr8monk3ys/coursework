@@ -1,0 +1,3 @@
+QUERY PLAN
+`--SCAN TABLE lineitem
+29219

@@ -1,0 +1,12 @@
+supplier             nation               warehouse                               
+Supplier#000000003   ARGENTINA            Supplier#000000003___JAPAN              
+Supplier#000000029   ARGENTINA            Supplier#000000029___JAPAN              
+Supplier#000000033   GERMANY              Supplier#000000033___JAPAN              
+Supplier#000000038   EGYPT                Supplier#000000038___JAPAN              
+Supplier#000000048   KENYA                Supplier#000000048___JAPAN              
+Supplier#000000053   GERMANY              Supplier#000000053___JAPAN              
+Supplier#000000073   MOZAMBIQUE           Supplier#000000073___JAPAN              
+Supplier#000000081   JAPAN                Supplier#000000081___JAPAN              
+Supplier#000000092   BRAZIL               Supplier#000000092___JAPAN              
+Supplier#000000097   EGYPT                Supplier#000000097___JAPAN              
+Supplier#000000100   VIETNAM              Supplier#000000100___JAPAN              

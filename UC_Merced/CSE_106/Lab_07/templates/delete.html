@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <div class="delete">
+        <h2>Delete Student Grade</h2>
+        <form action="{{ url_for('delete_record') }}" method="GET">
+            <input type="text" name="name" placeholder="Name" id="name4" /><br><br>
+            <input type="submit" value="submit" placeholder="Delete" />
+        </form>
+    </div>
+</body>
+
+</html>

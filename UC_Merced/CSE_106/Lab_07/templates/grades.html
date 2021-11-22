@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <h3>
+        <a>Grades Portal</a>
+    </h3>
+    <hr />
+    <h3><a href="{{ url_for('search') }}">Search Students</a></h3>
+    <h3><a href="{{ url_for('add') }}">Add Student</a></h3>
+    <h3><a href="{{ url_for('edit') }}">Edit Student</a></h3>
+    <h3><a href="{{ url_for('delete_record') }}">Delete Student</a></h3>
+    <table>
+        <head>
+            <tr>
+                <th>Name</th>
+                <th>Grade</th>
+            </tr>
+        </head>
+        <tbody>
+            {% for student in students %}
+            <tr>
+                <td>{{ student.name }}</td>
+                <td>{{ student.grade }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+
+</html>

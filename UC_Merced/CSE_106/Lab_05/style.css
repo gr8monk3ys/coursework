@@ -1,0 +1,31 @@
+body {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color:  linear-gradient(#4f6d7a, #dbe9ee);
+    font-family: Arial, Helvetica;
+    border: none;
+}
+
+div {
+    border-radius: 8px;
+}
+
+.row1 {
+    display: flex;
+    justify-content: space-around;
+    background-color: #4f6d7a;
+}
+
+.row2 {
+    display: flex;
+    justify-content: space-around;
+    background-color: #4a6fa5;
+}
+
+.row3 {
+    display: flex;
+    justify-content: space-around;
+    background-color: #166088;
+}

@@ -1,0 +1,9 @@
+QUERY PLAN
+|--SCAN TABLE nation USING INDEX nation_idx_n_name
+`--SEARCH TABLE supplier USING COVERING INDEX supplier_idx_s_nationkey_s_acctbal (s_nationkey=?)
+CHINA|7|7014.5
+EGYPT|6|8466.5
+KENYA|6|5630.62
+MOZAMBIQUE|7|8080.14
+UNITED STATES|8|9915.24
+VIETNAM|6|5873.07
