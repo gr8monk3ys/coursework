@@ -32,8 +32,10 @@ int main() {
         n--;
     }
 
-    for (int i = (size + 1); i >= 0; i--) {
-        cout << arr[i] << " ";
+    int j = (size + 1);
+    while(j >= 0){
+        cout << arr[j] << ' ';
+        j--;
     }
     return 0;
 }
