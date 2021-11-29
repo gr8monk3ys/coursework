@@ -1,0 +1,11 @@
+## Question 1
+
+cd ../question\ 1/ ; g++ x.cpp -o x ; ./x
+
+## Question 2
+
+cd ../question\ 2/ ; g++ exception.cpp -o exception ; ./exception
+
+## Question 3
+
+cd ../question\ 3/ ; g++ fibStack.cpp -o fibStack ; ./fibStack
