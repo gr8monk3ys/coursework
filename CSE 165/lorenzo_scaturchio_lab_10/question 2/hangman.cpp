@@ -1,83 +1,92 @@
-#include<iostream>
-#include<string.h>
-using namespcace std;
+#include <iostream>
+#include <fstream>
+#include <iomanip>
+#include <cstdlib>
+#include <ctime>
+using namespace std;
 
-main() {
-    char word[30], getit[30], * found;
-    int score, loop, len, num, lup, om, luptimes, times, fitimes, ondtimes, antimes;
-    luptimes = 0;
-    fitimes = 0;
-    ondtimes = 0;
-
-    clrscr();
-    cout << "\n ENTER THE WORD: ";
-    cin << word << endl;
-
-    score = 0;
-    num = 0;
-    om = 0;
-    len = strlen(word);
-
-    clrscr();
-
-    char gname[70];
-    cout << "\n ENTER YOUR NAME: ";
-    cin << gname << endl;
-    char h;
-    cout << "LET's START: ";
-    h = '_';
-    cout << "\n LOOK HERE: " << endl;
-
-    for (loop = 0;loop != len;loop++) {
-        cout << h << endl;
-    }
-
-    for (loop = 0;loop != len;loop++) {
-        om = 1;
-        num = num + 1;
-        fitimes = 0;
-        ondtimes = 0;
-
-        cout << "\n " << num << " LETTER";
-        cin << &getit[num] << endl;
-        found = strchr(word, getit[num]);
-        if (found) {
-            for (luptimes = 0;antimes = 1;luptimes != len;luptimes++, antimes++) {
-                if (getit[num] == word[luptimes]) {
-                    fitimes++;
-                }
-                else {
-                    fitimes = fitimes;
-                }
-            }
-            for (luptimes = num;luptimes != 0;luptimes--) {
-                if (getit[num] == getit[luptimes]) {
-                    ondtimes++;
-                }
-                else {
-                    ondtimes = ondtimes;
-                }
-            }
-            if (fitimes >= ondtimes) {
-                score = score + 1;
-                cout << "OK" << endl;
-                for (lup = 0;getit[num] != word[lup];lup++) {
-                    om++;
-                }
-
-                cout << "\n POSITION: " << om << endl;
-                cout << "\n ===================" << endl;
-            }else {
-                score = score;
-                cout << "\n NOT AGAIN!" << endl;
-            }
-        } else {
-            score = score;
-            cout << "\n NO" << endl;
+const int GUESS_LIMIT = 5;
+bool checkGuess(string word, char guess, bool matched[]) {
+    int flag = 0;
+    int i = 0;
+    while (i < word.length()) {
+        if (word[i] == guess && matched[i] == false) {
+            matched[i] = true;
+            flag = 1;
         }
+        i++;
     }
-    cout << "\n THE WORD IS "<< word << endl;
-    cout << "\n YOUR SCORE IS " << score << " OUT OF " << len;
-    getch();
+    if (flag == 1) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+void showGame(string word, bool matched[], int numGuesses) {
+    cout << "\tGuesses Remaining :" << GUESS_LIMIT - numGuesses << endl;
+    cout << "\tWord: ";
+
+    int i = 0;
+    while (i < word.length()) {
+        matched[i] == false ? cout << "-" : cout << word[i];
+        i++;
+    }
+
+    int count = 0;
+    i = 0;
+    while (i < word.length()) {
+        if (matched[i] == true) { count++; }
+        i++;
+    }
+
+    if (count == word.length()) {
+        cout << "\nYou Win!" << endl;
+        exit(0);
+    }
+}
+
+int main() {
+    int numGuesses = 0;
+    string word;
+    srand(time(NULL));
+    const int LIST = 20;
+    ifstream dataIn;
+    dataIn.open("words.txt");
+    string words[LIST];
+
+    int i = 0;
+    while (i < LIST) {
+        dataIn >> word;
+        words[i] = word;
+        i++;
+    }
+    dataIn.close();
+
+    int n = rand() % (LIST - 1) + 1;
+
+    word = words[n];
+
+    bool matched[word.length()];
+    char guess;
+
+    int j = 0;
+    while (j < word.length()) {
+        matched[j] = false;
+        j++;
+    }
+
+    cout << "Hangman" << endl;
+
+    do {
+        showGame(word, matched, numGuesses);
+        cout << "\n\tChoose letter:";
+        cin >> guess;
+        cin.clear();
+        cout << endl << endl;
+        if (!checkGuess(word, guess, matched))
+            numGuesses++;
+    } while (numGuesses < GUESS_LIMIT);
+    cout << "You lose" << endl;
     return 0;
 }
