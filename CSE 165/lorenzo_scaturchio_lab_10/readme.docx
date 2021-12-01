@@ -4,7 +4,7 @@ cd ../question\ 1/ ; g++ x.cpp -o x ; ./x
 
 ## Question 2
 
-cd ../question\ 2/ ; g++ exception.cpp -o exception ; ./exception
+cd ../question\ 2/ ; g++ hangman.cpp -o hangman ; ./hangman
 
 ## Question 3
 
