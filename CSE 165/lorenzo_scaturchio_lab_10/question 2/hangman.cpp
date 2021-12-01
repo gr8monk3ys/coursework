@@ -6,12 +6,12 @@
 using namespace std;
 
 const int GUESS_LIMIT = 5;
-bool checkGuess(string word, char guess, bool matched[]) {
+bool checkGuess(string word, char guess, bool match[]) {
     int flag = 0;
     int i = 0;
     while (i < word.length()) {
-        if (word[i] == guess && matched[i] == false) {
-            matched[i] = true;
+        if (word[i] == guess && match[i] == false) {
+            match[i] = true;
             flag = 1;
         }
         i++;
@@ -23,25 +23,25 @@ bool checkGuess(string word, char guess, bool matched[]) {
         return false;
     }
 }
-void showGame(string word, bool matched[], int numGuesses) {
+void showGame(string word, bool match[], int numGuesses) {
     cout << "\tGuesses Remaining :" << GUESS_LIMIT - numGuesses << endl;
     cout << "\tWord: ";
 
     int i = 0;
     while (i < word.length()) {
-        matched[i] == false ? cout << "-" : cout << word[i];
+        match[i] == false ? cout << "-" : cout << word[i];
         i++;
     }
 
     int count = 0;
     i = 0;
     while (i < word.length()) {
-        if (matched[i] == true) { count++; }
+        if (match[i] == true) { count++; }
         i++;
     }
 
     if (count == word.length()) {
-        cout << "\nYou Win!" << endl;
+        cout << "\nYou Win" << endl;
         exit(0);
     }
 }
@@ -67,26 +67,26 @@ int main() {
 
     word = words[n];
 
-    bool matched[word.length()];
+    bool match[word.length()];
     char guess;
 
     int j = 0;
     while (j < word.length()) {
-        matched[j] = false;
+        match[j] = false;
         j++;
     }
 
     cout << "Hangman" << endl;
 
     do {
-        showGame(word, matched, numGuesses);
+        showGame(word, match, numGuesses);
         cout << "\n\tChoose letter:";
         cin >> guess;
         cin.clear();
-        cout << endl << endl;
-        if (!checkGuess(word, guess, matched))
+        cout << endl;
+        if (!checkGuess(word, guess, match))
             numGuesses++;
     } while (numGuesses < GUESS_LIMIT);
-    cout << "You lose" << endl;
+    cout << "You lose the word was: " << word << endl;
     return 0;
 }
