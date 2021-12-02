@@ -11,13 +11,13 @@ int main() {
     int a = 0;
     int b = 1;
 
-    stack<int> s;
-    s.push(a);
-    s.push(b);
+    stack<int> stack;
+    stack.push(a);
+    stack.push(b);
 
     while (n > 0) {
         int c = a + b;
-        s.push(c);
+        stack.push(c);
         a = b;
         b = c;
         n--;
@@ -25,9 +25,9 @@ int main() {
 
     int arr[50];
     int i = 0;
-    while (!s.empty()) {
-        arr[i] = s.top();
-        s.pop();
+    while (!stack.empty()) {
+        arr[i] = stack.top();
+        stack.pop();
         i++;
         n--;
     }
