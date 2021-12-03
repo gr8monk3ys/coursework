@@ -1,0 +1,1 @@
+create trigger update_attribute before update on orders
