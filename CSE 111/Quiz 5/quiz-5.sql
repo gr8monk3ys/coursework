@@ -10,14 +10,13 @@ create table classes (
     c_bore          decimal(3,1) not null,
     c_displacement  decimal(10,0) not null,
     primary key(c_class),
-    check(c_type = 'bb' or c_type = 'bc')
+    check(c_type in('bb', 'bc'))
 );
 create table ships (
     s_name          char(25) unique,
-    s_class         char(20),
+    s_class         char(20) references classes(c_class) on update set null on delete set null,
     s_launched      decimal(10,0) not null,
-    primary key(s_name),
-    foreign key(s_class) references classes(c_class) on delete set null
+    primary key(s_name)
 );
 create table battles (
     b_name          char(25) unique,
@@ -31,7 +30,7 @@ create table outcomes (
     foreign key(o_ship) references ships(s_name) on delete cascade,
     foreign key(o_battle) references battles(b_name) on delete cascade,
     foreign key(o_battle) references battles(b_name) on update cascade,
-    check(o_result = 'ok' or o_result = 'sunk' or o_result = 'damaged')
+    check(o_result in('ok', 'sunk', 'damaged'))
 );
 ;
 .headers off
