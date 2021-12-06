@@ -1,4 +1,4 @@
-create trigger t1 before update or insert or update on orders
+create trigger t1 before update or insert or delete on orders
 for each row 
 when (o_orderdate is '2021-12-01')
 begin
