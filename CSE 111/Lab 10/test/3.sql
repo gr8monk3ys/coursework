@@ -2,10 +2,10 @@ drop trigger if exists t3;
 
 create trigger t3 after update on customer
 begin
-    update customer
-    set c_comment = "Positive balance"
-    where NEW.c_acctbal > 0
-    and OLD.c_acctbal < 0;
+update customer
+set c_comment = "Positive balance"
+where NEW.c_acctbal > 0
+and OLD.c_acctbal < 0;
 end;
 
 update customer set c_acctbal = 100
