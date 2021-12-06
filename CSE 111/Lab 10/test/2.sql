@@ -1,3 +1,5 @@
+drop trigger if exists t2;
+
 create trigger t2 after update on customer
 begin
     update customer set c_comment = "Negative balance!!!"
