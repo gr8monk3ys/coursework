@@ -1,0 +1,21 @@
+supReg                                   custReg                                       items
+AFRICA                                   AFRICA                                         2599
+AFRICA                                   AMERICA                                        2479
+AFRICA                                   ASIA                                           2480
+AFRICA                                   EUROPE                                         2198
+AFRICA                                   MIDDLE EAST                                    2765
+AMERICA                                  AFRICA                                         2604
+AMERICA                                  AMERICA                                        2335
+AMERICA                                  ASIA                                           2313
+AMERICA                                  EUROPE                                         2184
+AMERICA                                  MIDDLE EAST                                    2559
+ASIA                                     AFRICA                                         3449
+ASIA                                     AMERICA                                        3231
+ASIA                                     ASIA                                           3146
+ASIA                                     EUROPE                                         2941
+ASIA                                     MIDDLE EAST                                    3697
+MIDDLE EAST                              AFRICA                                         1502
+MIDDLE EAST                              AMERICA                                        1409
+MIDDLE EAST                              ASIA                                           1391
+MIDDLE EAST                              EUROPE                                         1363
+MIDDLE EAST                              MIDDLE EAST                                    1549
