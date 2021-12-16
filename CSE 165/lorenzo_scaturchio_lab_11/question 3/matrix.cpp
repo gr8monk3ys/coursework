@@ -103,7 +103,7 @@ ostream& operator<<(ostream& out, const Matrix& Mat) {
 }
 
 int main() {
-    Matrix m1(2, 2);
+    Matrix m1(2, 3);
     Matrix m2(2, 3);
     Matrix m3(3, 2);
     cin >> m1;
