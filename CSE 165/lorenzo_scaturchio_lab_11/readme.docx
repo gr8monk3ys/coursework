@@ -1,0 +1,11 @@
+## Question 1
+
+cd ../question\ 1/ ; g++ node.cpp -o node ; ./node
+
+## Question 2
+
+cd ../question\ 2/ ; g++ fill.cpp -o fill ; ./fill
+
+## Question 3
+
+cd ../question\ 3/ ; g++ matrix.cpp -o matrix ; ./matrix
