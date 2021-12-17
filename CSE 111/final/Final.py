@@ -45,10 +45,11 @@ def T1(_conn):
     result = code.fetchall()
 
     with open("output/1.out", "w") as file:
-        header = "{:>10}\n".format("orders")
+        header = "{:<10}\n".format("orders")
         file.write(header)
-        output = "{:>10}\n".format(result)
-        file.write(output)
+        for row in result:
+            output = "{:<10}\n".format(row[0])
+            file.write(output)
 
     print("++++++++++++++++++++++++++++++++++")
 
