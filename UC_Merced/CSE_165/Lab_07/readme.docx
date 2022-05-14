@@ -1,0 +1,12 @@
+## Question 1
+
+cd ../question\ 1/ ; g++ newArr.cpp -o newArr ; ./newArr
+
+## Question 2
+
+cd ../question\ 2/ ; g++ fibonacci.cpp -o fibonacci ; ./fibonacci
+
+## Question 3
+
+cd ../question\ 3/ ; g++ arrInt.cpp -o arrInt ; ./arrInt
+

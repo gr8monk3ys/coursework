@@ -1,0 +1,20 @@
+## Question 1
+
+compile + run: g++ question\ 1/proxy.cpp -o proxy ; question\ 1/./proxy
+
+## Question 2
+
+compile + run: g++ question\ 2/pointer.cpp -o pointer ; question\ 2/./pointer
+
+## Question 3
+
+compile: g++ question\ 3/pointToArray.cpp pointToArray.cpp -o pointToArray ; 
+run: question\ 3/./pointToArray
+
+## Question 4
+
+compile + run : g++ question\ 4/text.cpp -o text ; question\ 4/./text
+
+## Question 5
+
+compile + run: g++ question\ 5/combined.cpp -o combined ; question\ 5/./combined

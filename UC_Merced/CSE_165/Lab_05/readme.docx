@@ -1,0 +1,15 @@
+## Question 1
+
+compile + run: g++ instrument3.cpp -o instrument3 ; ./instrument3
+
+## Question 2
+
+compile + run: g++ AddingVirtuals.cpp -o AddingVirtuals ; ./AddingVirtuals
+
+## Question 3
+
+compile + run: g++ functionCall.cpp -o functionCall ; ./functionCall
+
+## Question 4
+
+compile + run : g++ pointFinder.cpp -o pointFinder ; ./pointFinder

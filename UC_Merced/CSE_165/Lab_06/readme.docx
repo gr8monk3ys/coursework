@@ -1,0 +1,23 @@
+## Question 1
+
+cd ../question \ 1/ ; g++ counted.cpp -o counted ; ./counted
+
+## Question 2
+
+cd ../question\ 2/ ; g++ newCounted.cpp -o newCounted ; ./newCounted
+
+## Question 3
+
+cd ../question\ 3/ ; g++ countedMember.cpp -o countedMember ; ./countedMember
+
+## Question 4
+
+cd ../question\ 4/ ; g++ pStash.cpp -o pStash ; ./pStash
+
+## Question 5
+
+cd ../question\ 5/ ; g++ heap.cpp -o heap  ; ./heap
+
+## Question 6
+
+cd ../question\ 6/ ; g++ placement.cpp -o placement ; ./placement
