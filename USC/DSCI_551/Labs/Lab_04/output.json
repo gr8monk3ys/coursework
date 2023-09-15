@@ -1,0 +1,1 @@
+{'Author': 'Bill Clinton', 'Year': Decimal('2002'), 'Keywords': ['History', 'President', Decimal('2002')], 'Prices': {Decimal('25.2'), Decimal('30')}, 'Ratings': {'Amazon': '5', 'Barnes & Noble': '4.5'}, 'Sellers': {'Ebay', 'Barnes & Noble', 'Amazon'}, 'Title': 'My Life'}
