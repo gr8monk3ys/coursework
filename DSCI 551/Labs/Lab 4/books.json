@@ -1,0 +1,47 @@
+{
+  "Author": {
+    "S": "Bill Clinton"
+  },
+  "Year": {
+    "N": "2002"
+  },
+  "Keywords": {
+    "L": [
+      {
+        "S": "History"
+      },
+      {
+        "S": "President"
+      },
+      {
+        "N": "2002"
+      }
+    ]
+  },
+  "Prices": {
+    "NS": [
+      "30",
+      "25.2"
+    ]
+  },
+  "Ratings": {
+    "M": {
+      "Amazon": {
+        "S": "5"
+      },
+      "Barnes & Noble": {
+        "S": "4.5"
+      }
+    }
+  },
+  "Sellers": {
+    "SS": [
+      "Amazon",
+      "Barnes & Noble",
+      "Ebay"
+    ]
+  },
+  "Title": {
+    "S": "My Life"
+  }
+}
