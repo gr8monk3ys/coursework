@@ -1,0 +1,60 @@
+<isa>
+	<name>CSE21 Recursion</name>
+	<intro>In this assignment, you'll explore the concept of recursion,
+	where methods make calls to themselves in order to solve complicated
+	problems.</intro>
+
+
+
+	<exercise>
+		<name>NaiveReverse</name>
+		<type>code</type>
+		<intro>Some "naive" methods to reverse a string.
+		Modelling based on other reverse methods, you'll
+		write "reverse6()".</intro>
+		<source>/src/recursion/NaiveReverse.java</source>
+		<testclass>tests.NaiveReverseTest</testclass>
+		</exercise>
+
+	<exercise>
+		<name>Reverse17</name>
+		<type>code</type>
+		<intro>Write the method reverse17() to use a working reverse16() method</intro>
+		<source>/src/recursion/Reverse17.java</source>
+		<testclass>tests.Reverse17Test</testclass>
+		</exercise>
+
+	<exercise>
+		<name>Reverse</name>
+		<type>code</type>
+		<intro>Write the recursive method reverse() without using any
+		other (other than some that do string manipulation).</intro>
+		<source>/src/recursion/Reverse.java</source>
+		<testclass>tests.ReverseTest</testclass>
+		</exercise>
+
+
+
+
+	<exercise>
+		<name>Halved</name>
+		<type>code</type>
+		<intro>Fill in the conditional test for the recursive method halved() 
+		that takes an integer
+		and returns the result of dividing that integer in half.</intro>
+		<source>/src/recursion/Halved.java</source>
+		<testclass>tests.HalvedTest</testclass>
+		</exercise>
+
+
+	
+	<exercise>
+		<name>DigitCount</name>
+		<type>code</type>
+		<intro>Fix a bug in the digitCount() method that takes in an integer
+		and returns the number of digits that it contains.</intro>
+		<source>/src/recursion/DigitCount.java</source>
+		<testclass>tests.DigitCountTest</testclass>
+		</exercise>
+
+</isa>

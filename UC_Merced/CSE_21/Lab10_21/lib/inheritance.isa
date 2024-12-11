@@ -1,0 +1,41 @@
+<isa>
+	<name>Test1</name>
+	<intro>Some testing #1.</intro>
+
+	
+	<exercise>
+		<name>ModNCounter</name>
+		<type>code</type>
+		<intro>ModNCounter: Write a cyclic counter class</intro>
+		<source>/src/oop/ModNCounter.java</source>
+		<testclass>tests.ModNCounterTest</testclass>
+		</exercise>
+
+	<exercise>
+		<name>ModNCounter2</name>
+		<type>code</type>
+		<intro>ModNCounter2: Change the internal workings of the cyclic counter class</intro>
+		<source>/src/oop/ModNCounter2.java</source>
+		<testclass>tests.ModNCounter2Test</testclass>
+		</exercise>
+
+	<exercise>
+		<name>DecrementableCounter</name>
+		<type>code</type>
+		<intro>Write a counter class that can decrement the counter</intro>
+		<source>/src/oop/DecrementableCounter.java</source>
+		<testclass>tests.DecrementableCounterTest</testclass>
+		</exercise>
+
+	<exercise>
+		<name>SeasonCounter</name>
+		<type>code</type>
+		<intro>Cycle through the seasons...</intro>
+		<source>/src/oop/SeasonCounter.java</source>
+		<testclass>tests.SeasonCounterTest</testclass>
+		</exercise>
+	
+
+
+
+</isa>
