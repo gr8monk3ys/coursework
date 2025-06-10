@@ -1,8 +1,8 @@
 function [C, sigma] = dataset3Params(X, y, Xval, yval)
-%EX6PARAMS returns your choice of C and sigma for Part 3 of the exercise
+%DATASET3PARAMS returns your choice of C and sigma for Part 3 of the exercise
 %where you select the optimal (C, sigma) learning parameters to use for SVM
 %with RBF kernel
-%   [C, sigma] = EX6PARAMS(X, y, Xval, yval) returns your choice of C and 
+%   [C, sigma] = DATASET3PARAMS(X, y, Xval, yval) returns your choice of C and 
 %   sigma. You should complete this function to return the optimal C and 
 %   sigma based on a cross-validation set.
 %
@@ -23,24 +23,38 @@ sigma = 0.3;
 %        mean(double(predictions ~= yval))
 %
 
-results = eye(64,3);
-errorRow = 0;
+% Define the range of values to test
+values = [0.01, 0.03, 0.1, 0.3, 1, 3, 10, 30];
 
-for C_test = [0.01 0.03 0.1 0.3 1, 3, 10 30]
-    for sigma_test = [0.01 0.03 0.1 0.3 1, 3, 10 30]
-        errorRow = errorRow + 1;
-        model = svmTrain(X, y, C_test, @(x1, x2) gaussianKernel(x1, x2, sigma_test));
+% Initialize variables to track the best parameters
+best_error = Inf;
+best_C = 0;
+best_sigma = 0;
+
+% Try all combinations of C and sigma from the range
+for C_value = values
+    for sigma_value = values
+        % Train the SVM model
+        model = svmTrain(X, y, C_value, @(x1, x2) gaussianKernel(x1, x2, sigma_value));
+        
+        % Get predictions for validation set
         predictions = svmPredict(model, Xval);
-        prediction_error = mean(double(predictions ~= yval));
-
-        results(errorRow,:) = [C_test, sigma_test, prediction_error];     
+        
+        % Calculate error rate
+        error = mean(double(predictions ~= yval));
+        
+        % Update best parameters if current error is lower
+        if error < best_error
+            best_error = error;
+            best_C = C_value;
+            best_sigma = sigma_value;
+        end
     end
 end
 
-sorted_results = sortrows(results, 3); % sort matrix by column #3, the error, ascending
-
-C = sorted_results(1,1);
-sigma = sorted_results(1,2);
+% Set the optimal parameters found
+C = best_C;
+sigma = best_sigma;
 
 % =========================================================================
 

@@ -27,6 +27,7 @@ num_labels = 10;          % 10 labels, from 1 to 10
 %% =========== Part 1: Loading and Visualizing Data =============
 %  We start the exercise by first loading and visualizing the dataset. 
 %  You will be working with a dataset that contains handwritten digits.
+%
 
 % Load Training Data
 fprintf('Loading and Visualizing Data ...\n')
@@ -110,8 +111,8 @@ pause;
 
 fprintf('\nEvaluating sigmoid gradient...\n')
 
-g = sigmoidGradient([1 -0.5 0 0.5 1]);
-fprintf('Sigmoid gradient evaluated at [1 -0.5 0 0.5 1]:\n  ');
+g = sigmoidGradient([-1 -0.5 0 0.5 1]);
+fprintf('Sigmoid gradient evaluated at [-1 -0.5 0 0.5 1]:\n  ');
 fprintf('%f ', g);
 fprintf('\n\n');
 
@@ -164,8 +165,8 @@ checkNNGradients(lambda);
 debug_J  = nnCostFunction(nn_params, input_layer_size, ...
                           hidden_layer_size, num_labels, X, y, lambda);
 
-fprintf(['\n\nCost at (fixed) debugging parameters (w/ lambda = 10): %f ' ...
-         '\n(this value should be about 0.576051)\n\n'], debug_J);
+fprintf(['\n\nCost at (fixed) debugging parameters (w/ lambda = %f): %f ' ...
+         '\n(for lambda = 3, this value should be about 0.576051)\n\n'], lambda, debug_J);
 
 fprintf('Program paused. Press enter to continue.\n');
 pause;
@@ -207,8 +208,9 @@ Theta2 = reshape(nn_params((1 + (hidden_layer_size * (input_layer_size + 1))):en
 fprintf('Program paused. Press enter to continue.\n');
 pause;
 
+
 %% ================= Part 9: Visualize Weights =================
-%  You can now "visualize" what the neural network is learning by
+%  You can now "visualize" what the neural network is learning by 
 %  displaying the hidden units to see what features they are capturing in 
 %  the data.
 
@@ -228,3 +230,5 @@ pause;
 pred = predict(Theta1, Theta2, X);
 
 fprintf('\nTraining Set Accuracy: %f\n', mean(double(pred == y)) * 100);
+
+

@@ -78,7 +78,8 @@ pval = multivariateGaussian(Xval, mu, sigma2);
 [epsilon F1] = selectThreshold(yval, pval);
 fprintf('Best epsilon found using cross-validation: %e\n', epsilon);
 fprintf('Best F1 on Cross Validation Set:  %f\n', F1);
-fprintf('   (you should see a value epsilon of about 8.99e-05)\n\n');
+fprintf('   (you should see a value epsilon of about 8.99e-05)\n');
+fprintf('   (you should see a Best F1 value of  0.875000)\n\n');
 
 %  Find the outliers in the training set and plot the
 outliers = find(p < epsilon);
@@ -115,9 +116,6 @@ pval = multivariateGaussian(Xval, mu, sigma2);
 
 fprintf('Best epsilon found using cross-validation: %e\n', epsilon);
 fprintf('Best F1 on Cross Validation Set:  %f\n', F1);
-fprintf('# Outliers found: %d\n', sum(p < epsilon));
-fprintf('   (you should see a value epsilon of about 1.38e-18)\n\n');
-pause
-
-
-
+fprintf('   (you should see a value epsilon of about 1.38e-18)\n');
+fprintf('   (you should see a Best F1 value of 0.615385)\n');
+fprintf('# Outliers found: %d\n\n', sum(p < epsilon));

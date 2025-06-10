@@ -18,13 +18,11 @@ Z = zeros(size(X, 1), K);
 %                    projection_k = x' * U(:, k);
 %
 
-for i=1:size(X, 1),
-    for j=1:K,
-        x = X(i, :)';
-        projection_k = x' * U(:, j);
-        Z(i, j) = projection_k;
-    end
-end
+% Select only the top K eigenvectors (first K columns of U)
+U_reduced = U(:, 1:K);
+
+% Project the data onto the reduced space using matrix multiplication
+Z = X * U_reduced;
 
 % =============================================================
 

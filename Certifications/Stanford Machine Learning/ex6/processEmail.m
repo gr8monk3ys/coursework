@@ -96,13 +96,19 @@ while ~isempty(email_contents)
     % Note: You can use strcmp(str1, str2) to compare two strings (str1 and
     %       str2). It will return 1 only if the two strings are equivalent.
     %
-
-    idx = strmatch(str, vocabList, 'exact');
-    if ~isempty(idx)
-        word_indices = [word_indices; idx];
+    
+    % Search the vocabulary list for the current word
+    for i = 1:length(vocabList)
+        % If the stemmed word matches a word in the vocabulary list
+        if strcmp(str, vocabList{i})
+            % Add the word's index to word_indices
+            word_indices = [word_indices; i];
+            break; % Exit the loop once a match is found
+        end
     end
-
+    
     % =============================================================
+
 
     % Print to screen, ensuring that the output lines are not too long
     if (l + length(str) + 1) > 78

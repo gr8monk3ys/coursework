@@ -21,12 +21,22 @@ p = zeros(size(X, 1), 1);
 %       can use max(A, [], 2) to obtain the max for each row.
 %
 
+% Add ones to the X data matrix as bias units
 X = [ones(m, 1) X];
-t1 = sigmoid(X * Theta1');
-t1 = [ones(m, 1) t1];
 
-t2 = sigmoid( t1 * Theta2');
+% Calculate activations for the hidden layer
+a2 = sigmoid(X * Theta1');
 
-[~, p] = max(t2, [], 2);
+% Add bias unit to hidden layer
+a2 = [ones(size(a2, 1), 1) a2];
+
+% Calculate activations for the output layer
+a3 = sigmoid(a2 * Theta2');
+
+% Find the index with the highest activation for each example
+[~, p] = max(a3, [], 2);
+
+% =========================================================================
+
 
 end

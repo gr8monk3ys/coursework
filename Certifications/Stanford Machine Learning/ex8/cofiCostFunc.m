@@ -39,15 +39,26 @@ Theta_grad = zeros(size(Theta));
 %        Theta_grad - num_users x num_features matrix, containing the 
 %                     partial derivatives w.r.t. to each element of Theta
 %
+% Calculate predicted ratings using dot product of movie features and user preferences
+predictions = X * Theta';
 
-J = 1/2 * sum(sum((R.* ((X*Theta') - Y)).^2));
-X_grad = (R .* (X*Theta' - Y)) * Theta;
-Theta_grad = (R .* (X*Theta' - Y))' * X;
+% Calculate the squared error only for the observed ratings (element-wise multiply with R)
+error = (predictions - Y) .* R;
 
-% With regularization
-J = J + lambda/2 * (sum(sum(Theta.^2)) + sum(sum(X.^2)));
-X_grad = X_grad + lambda * X;
-Theta_grad = Theta_grad + lambda * Theta;
+% Calculate unregularized cost: sum of squared errors divided by 2
+J = (1/2) * sum(sum(error.^2));
+
+% Add regularization terms to the cost
+reg_theta = (lambda/2) * sum(sum(Theta.^2));  % Regularization for Theta
+reg_x = (lambda/2) * sum(sum(X.^2));         % Regularization for X
+J = J + reg_theta + reg_x;
+
+% Calculate gradients
+% For each movie feature vector x(i)
+X_grad = error * Theta + lambda * X;
+
+% For each user parameter vector theta(j)
+Theta_grad = error' * X + lambda * Theta;
 
 % =============================================================
 

@@ -51,14 +51,28 @@ error_val   = zeros(m, 1);
 %       end
 %
 
+% ---------------------- Sample Solution ----------------------
+
+% Loop through different training set sizes
 for i = 1:m
-    X_sub = X(1:i, :);
-    y_sub = y(1:i); 
-
-    theta = trainLinearReg(X_sub, y_sub, lambda);
-
-    error_train(i) = linearRegCostFunction(X_sub, y_sub, theta, 0);
-    error_val(i) = linearRegCostFunction(Xval, yval, theta, 0);
+    % Get subset of training data with i examples
+    X_train = X(1:i, :);
+    y_train = y(1:i);
+    
+    % Train the linear regression model on the subset
+    theta = trainLinearReg(X_train, y_train, lambda);
+    
+    % Calculate training error (use lambda=0 for error calculation)
+    [J_train, ~] = linearRegCostFunction(X_train, y_train, theta, 0);
+    error_train(i) = J_train;
+    
+    % Calculate validation error (use lambda=0 for error calculation)
+    [J_val, ~] = linearRegCostFunction(Xval, yval, theta, 0);
+    error_val(i) = J_val;
 end
+
+% -------------------------------------------------------------
+
+% =========================================================================
 
 end

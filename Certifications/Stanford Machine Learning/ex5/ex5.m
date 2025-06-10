@@ -101,7 +101,7 @@ pause;
 %  Next, you should implement the learningCurve function. 
 %
 %  Write Up Note: Since the model is underfitting the data, we expect to
-%                 see a graph with "high bias" -- slide 8 in ML-advice.pdf 
+%                 see a graph with "high bias" -- Figure 3 in ex5.pdf 
 %
 
 lambda = 0;
@@ -164,7 +164,7 @@ pause;
 %  lambda to see how the fit and learning curve change.
 %
 
-lambda = 1;
+lambda = 0;
 [theta] = trainLinearReg(X_poly, y, lambda);
 
 % Plot training data and fit

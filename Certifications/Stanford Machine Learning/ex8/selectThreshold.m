@@ -22,18 +22,27 @@ for epsilon = min(pval):stepsize:max(pval)
     %               
     % Note: You can use predictions = (pval < epsilon) to get a binary vector
     %       of 0's and 1's of the outlier predictions
-
+    
+    % Make predictions using current epsilon as threshold
     predictions = (pval < epsilon);
     
-    fp = sum((predictions == 1) & (yval == 0));
-    fn = sum((predictions == 0) & (yval == 1));
-    tp = sum((predictions == 1) & (yval == 1));
-
-    prec = tp / (tp + fp);
-    rec = tp / (tp + fn);
-
-    F1 = 2 * prec * rec / (prec + rec);
-
+    % Calculate true positives, false positives, and false negatives
+    tp = sum((predictions == 1) & (yval == 1));  % True positives
+    fp = sum((predictions == 1) & (yval == 0));  % False positives
+    fn = sum((predictions == 0) & (yval == 1));  % False negatives
+    
+    % Calculate precision and recall
+    precision = tp / (tp + fp);  % Precision: tp / (tp + fp)
+    recall = tp / (tp + fn);     % Recall: tp / (tp + fn)
+    
+    % Calculate F1 score
+    % If either precision or recall is 0, F1 would be NaN or Inf, so handle it
+    if precision + recall == 0
+        F1 = 0;
+    else
+        F1 = 2 * precision * recall / (precision + recall);
+    end
+    
     % =============================================================
 
     if F1 > bestF1

@@ -48,10 +48,11 @@ x = zeros(n, 1);
 %
 %
 
-%for i=1:size(word_indices)
-%    x(word_indices(i)) = 1;
-%end
-x(word_indices) = 1;
+% For each word in word_indices, set the corresponding feature to 1
+for i = 1:length(word_indices)
+    x(word_indices(i)) = 1;
+end
+
 % =========================================================================
     
 end

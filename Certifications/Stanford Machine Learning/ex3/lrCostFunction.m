@@ -36,18 +36,25 @@ grad = zeros(size(theta));
 %           grad = grad + YOUR_CODE_HERE (using the temp variable)
 %
 
-h_theta = sigmoid(X * theta);
+% Calculate hypothesis (vectorized)
+h = sigmoid(X * theta);
 
-% Cost
+% Calculate cost (vectorized)
+J = (1/m) * sum(-y .* log(h) - (1 - y) .* log(1 - h));
 
-J = (1/m) * (((-1 * y') * log(h_theta)) - ((1-y') * log(1-h_theta))) + (lambda/(2*m)) * (sum(theta(2:end) .^ 2));
+% Add regularization term to cost (excluding theta(1))
+J = J + (lambda/(2*m)) * sum(theta(2:end).^2);
 
+% Calculate gradient (vectorized)
+grad = (1/m) * (X' * (h - y));
+
+% Add regularization to gradient (excluding theta(1))
 temp = theta;
-temp(1) = 0;
+temp(1) = 0;  % Don't regularize the bias term
+grad = grad + (lambda/m) * temp;
 
-grad = ((1 / m) * X' * (h_theta - y)) + (lambda / m) * temp;
-grad = grad(:);
 % =============================================================
 
+grad = grad(:);
 
 end

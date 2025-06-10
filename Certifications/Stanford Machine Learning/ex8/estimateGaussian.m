@@ -21,9 +21,12 @@ sigma2 = zeros(n, 1);
 %               should contain variance of the i-th feature.
 %
 
-mu = 1/m * sum(X);
+% Compute the mean of each feature (column-wise)
+mu = mean(X)'; % Transpose to get n x 1 vector
 
-sigma2 = 1/m * sum((X - repmat(mu, m, 1)).^2);
+% Compute the variance of each feature (column-wise)
+% Using the formula: sigma^2 = (1/m) * sum((x_i - mu)^2)
+sigma2 = var(X, 1)'; % Use var with normalization by m (not m-1), then transpose
 
 % =============================================================
 

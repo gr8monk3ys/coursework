@@ -20,9 +20,14 @@ S = zeros(n);
 %       number of examples).
 %
 
-Sigma = 1.0/m .* X' * X;
+% Compute the covariance matrix
+Sigma = (X' * X) / m;
 
-[U, S, V] = svd(Sigma);
+% Compute the eigenvectors and eigenvalues using Singular Value Decomposition
+[U, S, ~] = svd(Sigma);
+
+% U contains the eigenvectors (principal components)
+% S contains the eigenvalues on its diagonal
 
 % =========================================================================
 

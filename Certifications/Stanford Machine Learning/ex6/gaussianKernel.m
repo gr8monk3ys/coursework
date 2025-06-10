@@ -14,9 +14,15 @@ sim = 0;
 %               and x2 computed using a Gaussian kernel with bandwidth
 %               sigma
 %
-%
+% The Gaussian kernel (RBF) is defined as:
+% K(x1, x2) = exp(-||x1 - x2||^2 / (2 * sigma^2))
 
-sim = exp(-sum((x1-x2).^2)/(2*sigma^2));
+% Calculate the L2 norm squared of the difference between x1 and x2
+diff = x1 - x2;
+squared_distance = sum(diff .^ 2);
+
+% Calculate the Gaussian kernel value
+sim = exp(-squared_distance / (2 * sigma^2));
 
 % =============================================================
     

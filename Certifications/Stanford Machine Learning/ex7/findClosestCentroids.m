@@ -21,15 +21,29 @@ idx = zeros(size(X,1), 1);
 % Note: You can use a for-loop over the examples to compute this.
 %
 
-m = size(X,1);
+% Get the number of examples
+m = size(X, 1);
 
+% For each example in X
 for i = 1:m
-    distance_array = zeros(1,K);
+    % Initialize minimum distance and closest centroid index
+    min_dist = Inf;
+    closest_centroid = 0;
+    
+    % Find the centroid with minimum distance to the example
     for j = 1:K
-        distance_array(1,j) = sqrt(sum(power((X(i,:)-centroids(j,:)),2)));
+        % Calculate the Euclidean distance between the example and centroid
+        dist = sum((X(i, :) - centroids(j, :)) .^ 2);
+        
+        % Update if this centroid is closer than previous closest
+        if dist < min_dist
+            min_dist = dist;
+            closest_centroid = j;
+        end
     end
-    [~, d_idx] = min(distance_array);
-    idx(i,1) = d_idx;
+    
+    % Assign the closest centroid index to idx
+    idx(i) = closest_centroid;
 end
 
 % =============================================================

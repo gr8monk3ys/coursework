@@ -11,11 +11,27 @@ m = length(y); % number of training examples
 J = 0;
 grad = zeros(size(theta));
 
-h_theta = sigmoid(X*theta);
-J = (1/m) * (-y' * log(h_theta) - (1-y)' * log(1-h_theta)) + (lambda/(2*m)) * (theta(2:length(theta)))' * theta(2:length(theta));
+% ====================== YOUR CODE HERE ======================
+% Instructions: Compute the cost of a particular choice of theta.
+%               You should set J to the cost.
+%               Compute the partial derivatives and set grad to the partial
+%               derivatives of the cost w.r.t. each parameter in theta
 
-thetaZero = theta;
-thetaZero(1) = 0;
+% Compute hypothesis using sigmoid function
+h = sigmoid(X * theta);
 
-grad = ((1 / m) * (h_theta - y)' * X) + lambda / m * thetaZero';
+% Calculate cost function with regularization term
+% Note that theta(1) is not regularized
+J = (1/m) * sum(-y .* log(h) - (1 - y) .* log(1 - h)) + (lambda/(2*m)) * sum(theta(2:end).^2);
+
+% Calculate gradient with regularization
+% First calculate the gradient without regularization
+grad_no_reg = (1/m) * (X' * (h - y));
+
+% Add regularization term to all theta values except theta(1)
+grad = grad_no_reg;
+grad(2:end) = grad(2:end) + (lambda/m) * theta(2:end);
+
+% =============================================================
+
 end
