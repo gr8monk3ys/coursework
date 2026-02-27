@@ -36,7 +36,7 @@ This repository is distributed under the terms specified in the [LICENSE](./LICE
 
 1. **Clone the Repository:**  
    ```bash
-   git clone https://github.com/your-username/coursework-repository.git
+   git clone https://github.com/gr8monk3ys/coursework.git
    ```
    
 2. **Explore the Directories:**  
@@ -58,4 +58,4 @@ Contributions to this repository are welcome. Whether you wish to update existin
 
 ## Support & Contact
 
-For questions, suggestions, or feedback, please open an [issue](https://github.com/your-username/coursework-repository/issues) in this repository. Community members and maintainers will respond as promptly as possible. Should you require more immediate assistance or have inquiries of a sensitive nature, you can contact the repository maintainers through the issue tracker or by referencing the repository’s contact information.
+For questions, suggestions, or feedback, please open an [issue](https://github.com/gr8monk3ys/coursework/issues) in this repository. Community members and maintainers will respond as promptly as possible. Should you require more immediate assistance or have inquiries of a sensitive nature, you can contact the repository maintainers through the issue tracker or by referencing the repository’s contact information.

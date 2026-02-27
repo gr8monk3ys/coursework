@@ -12,15 +12,15 @@ The course focuses on web application development, including:
 
 ## Projects
 
-1. **Lab 01: Web Application Sample**
+1. **Lab_01**: Web Application Sample
    - Introduction to web application development
    - Basic web architecture concepts
 
-2. **Lab 02: Crow Server**
+2. **Lab_02**: Crow Server
    - Server implementation
    - Backend development concepts
 
-3. **Lab 03: Word Game**
+3. **Lab_03**: Word Game
    - Interactive web-based game
    - Frontend and backend integration
 

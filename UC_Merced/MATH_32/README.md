@@ -14,34 +14,34 @@ The course covers:
 
 ## Lab Structure
 
-### Lab 1: Introduction to Probability
+### Lab_01: Introduction to Probability
 - Monty Hall Problem Simulation
 - Basic Probability Concepts
 
-### Lab 3: Probability Distributions
+### Lab_03: Probability Distributions
 - Discrete Probability Distributions
 - Continuous Probability Distributions
 - Multiple Distribution Analysis
 
-### Lab 4: Linear Regression
+### Lab_04: Linear Regression
 - Linear Regression Analysis
 - Concrete Data Analysis
 - Statistical Modeling
 
-### Lab 5: Cumulative Distribution Functions
+### Lab_05: Cumulative Distribution Functions
 - CDF Implementation
 - Probability Analysis
 
-### Lab 7-8: Advanced Probability
+### Lab_07-08: Advanced Probability
 - Uniform Probability Density Functions
 - Statistical Computations
 
-### Lab 9: Advanced Distributions
+### Lab_09: Advanced Distributions
 - Pareto Distribution
 - True CDF Implementation
 - Distribution Analysis
 
-### Lab 10: Real-World Applications
+### Lab_10: Real-World Applications
 - MLB 2015 Data Analysis
 - Practical Statistical Applications
 

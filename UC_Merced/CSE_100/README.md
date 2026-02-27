@@ -13,12 +13,12 @@ The course covers:
 
 ## Lab Structure
 
-The course consists of 13 labs (Lab00-Lab12), each focusing on different algorithmic concepts:
+The course consists of 13 labs (Lab_00-Lab_12), each focusing on different algorithmic concepts:
 
-- **Lab00**: Course Introduction and Setup
-- **Lab01-03**: Basic Algorithm Implementation
-- **Lab04**: Two-Part Lab with Advanced Concepts
-- **Lab05-12**: Progressive Algorithm Implementation and Analysis
+- **Lab_00**: Course Introduction and Setup
+- **Lab_01-03**: Basic Algorithm Implementation
+- **Lab_04**: Two-Part Lab with Advanced Concepts
+- **Lab_05-12**: Progressive Algorithm Implementation and Analysis
 
 ## Implementation Details
 

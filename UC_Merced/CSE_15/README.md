@@ -12,9 +12,9 @@ The course covers fundamental concepts in discrete mathematics, including:
 
 ## Directory Structure
 
-- **Lab 01**: Introduction to Python programming with basic problem-solving
-- **Lab 02**: Logic implementation and truth tables
-- **Lab 03**: Recursion concepts and implementation
+- **Lab_01**: Introduction to Python programming with basic problem-solving
+- **Lab_02**: Logic implementation and truth tables
+- **Lab_03**: Recursion concepts and implementation
 
 ## Technologies Used
 - Python 3.x

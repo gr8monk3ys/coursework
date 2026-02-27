@@ -13,39 +13,39 @@ The course covers:
 
 ## Lab Structure
 
-1. **Lab 1**: Python Fundamentals
+1. **Lab_01**: Python Fundamentals
    - Basic Python programming
    - File handling
    - Text processing
 
-2. **Lab 2**: Data Analysis
+2. **Lab_02**: Data Analysis
    - NumPy operations
    - Pandas data manipulation
    - Data visualization
 
-3. **Lab 3**: Static Web Pages
+3. **Lab_03**: Static Web Pages
    - HTML structure
    - Basic web design
    - Multiple page navigation
 
-4. **Lab 4**: JavaScript Basics
+4. **Lab_04**: JavaScript Basics
    - Calculator implementation
    - DOM manipulation
 
-5. **Lab 5**: Advanced JavaScript
+5. **Lab_05**: Advanced JavaScript
    - Interactive web applications
    - Event handling
 
-6. **Lab 6**: Flask Introduction
+6. **Lab_06**: Flask Introduction
    - Basic Flask setup
    - Server-side programming
 
-7. **Lab 7**: Full-Stack Development
+7. **Lab_07**: Full-Stack Development
    - CRUD operations
    - Grade management system
    - Multiple view templates
 
-8. **Lab 8**: Authentication & Authorization
+8. **Lab_08**: Authentication & Authorization
    - User authentication
    - Role-based access control
    - Different user views (Student/Teacher)

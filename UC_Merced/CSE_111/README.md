@@ -14,23 +14,23 @@ The course covers:
 
 ## Directory Structure
 
-### Labs (1-11)
-- **Lab 1**: Database Schema Creation and Verification
+### Labs (Lab_01-Lab_10)
+- **Lab_01**: Database Schema Creation and Verification
   - TPC-H schema setup
   - Basic database configuration
 
-- **Lab 2**: Data Loading and Basic Queries
+- **Lab_02**: Data Loading and Basic Queries
   - Table population
   - Fundamental SQL queries
   - Multiple test cases
 
-- **Labs 3-10**: Progressive SQL Development
+- **Lab_03-Lab_10**: Progressive SQL Development
   - Advanced query writing
   - Query optimization
   - Complex database operations
   - Extensive test suites
 
-### Quizzes (1-5)
+### Quizzes (Quiz_01-Quiz_05)
 - Practical SQL assessments
 - Database concept validation
 - Query writing exercises

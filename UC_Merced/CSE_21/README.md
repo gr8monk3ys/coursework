@@ -13,18 +13,18 @@ The course covers:
 
 ## Major Projects
 
-1. **Cheese Shop Program Series**
+1. **Shop_Program** (Cheese Shop Program Series)
    - Multiple iterations of a shop management system
    - Demonstrates evolution of programming concepts
    - Includes array implementations and object-oriented design
 
-2. **Roommate Compatibility Program**
+2. **Roommate_Compatibility_Program**
    - Complex project involving multiple classes
    - File parsing and data management
    - Student matching algorithm implementation
 
 ## Lab Structure
-- **Lab01-11**: Progressive learning of Java concepts
+- **Lab_01-11**: Progressive learning of Java concepts
 - Each lab builds upon previous knowledge
 - Focus on practical implementation of programming concepts
 
