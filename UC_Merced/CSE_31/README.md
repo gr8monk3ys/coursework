@@ -14,15 +14,15 @@ The course covers:
 ## Directory Structure
 
 ### Labs
-1. **Lab 1**: Basic C Programming (averages, punishment)
-2. **Lab 2**: Pointers and Arrays
-3. **Lab 3**: Linked Lists and Memory Management
-4. **Lab 4**: 2D Arrays and Matrix Operations
-5. **Lab 5**: Introduction to MIPS Assembly
-6. **Lab 6**: Fibonacci in Assembly
-7. **Lab 7**: Procedures in C and Assembly
-8. **Lab 8**: Recursion Implementation
-9. **Lab 9**: Advanced Assembly Programming
+1. **Lab_01**: Basic C Programming (averages, punishment)
+2. **Lab_02**: Pointers and Arrays
+3. **Lab_03**: Linked Lists and Memory Management
+4. **Lab_04**: 2D Arrays and Matrix Operations
+5. **Lab_05**: Introduction to MIPS Assembly
+6. **Lab_06**: Fibonacci in Assembly
+7. **Lab_07**: Procedures in C and Assembly
+8. **Lab_08**: Recursion Implementation
+9. **Lab_09**: Advanced Assembly Programming
 
 ### Projects
 1. **BobCat Candy**: Assembly language implementation of a candy shop system

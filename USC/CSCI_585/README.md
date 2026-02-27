@@ -1,35 +1,35 @@
 # CSCI 585 - Database Systems
 
-This repository contains homework assignments for USC's CSCI 585 course focusing on database systems and SQL programming.
+This repository contains homework assignments for USC's CSCI 585 course focusing on database systems, SQL programming, and data modeling.
 
 ## Course Content
 
 The course covers:
-- Database Design and Implementation
-- SQL Programming
-- Database Management Systems
-- Query Optimization
-- Data Modeling
+- Entity-Relationship (ER) modeling
+- SQL schema design and query writing
+- Database design with foreign key constraints
+- Deep learning for image classification
 
 ## Assignments
 
-### HW1
-- Database fundamentals
-- Basic database design concepts
+### HW1: ER Diagram Design
+- Entity-Relationship model for a YouTube-like platform
+- Entities: Users, Creators, Consumers, YouTube Channels, Videos, Comments, Sponsors
+- Relationships: one-to-one, one-to-many, many-to-many with primary/foreign keys
+- Deliverable: ER diagram with detailed specification
 
-### HW2
-- SQL query implementation
-- Advanced database operations
-- Query optimization techniques
+### HW2: SQL Queries
+- **q1.sql**: Sponsors and sponsorships — `CREATE TABLE`, `INSERT`, `INNER JOIN`, `GROUP BY`, aggregate functions (`SUM`)
+- **q2.sql**: Content creators, videos, and comments — foreign key constraints, `CAST`, `LIKE` pattern matching, `ORDER BY`
 
-### HW5
-- Advanced database concepts
-- System implementation
+### HW5: Deep Learning / Image Classification
+- Neural network model training with Keras/TensorFlow
+- Trained model weights (`weights.h5`)
+- Architecture diagrams, run results, and misclassification analysis
+
+Note: HW3 and HW4 were not included in this repository.
 
 ## Technologies Used
 - SQL
-- Database Management Systems
-- Data Modeling Tools
-- Query Languages
-
-Each assignment focuses on different aspects of database systems, providing hands-on experience with database design and implementation.
+- Python (Keras, TensorFlow)
+- ER Modeling Tools
