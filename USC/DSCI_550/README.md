@@ -5,45 +5,31 @@ This repository contains homework assignments for USC's DSCI 550 course focusing
 ## Course Content
 
 The course covers:
-- Machine Learning Fundamentals
-- Data Analysis and Processing
-- Binary Classification
-- Hypothesis Testing
-- Advanced ML Techniques
-- Data Science Applications
+- Exploratory data analysis
+- Binary classification and logistic regression
+- Hypothesis learning and evaluation metrics
+- Machine learning model assessment
 
 ## Assignments
 
-### HW1
-- Introduction to Data Science
-- Basic data analysis techniques
+### HW1: Exploratory Data Analysis
+- Pandas-based analysis of a flight delays dataset
+- Aggregation with `groupby`, filtering, and descriptive statistics
+- Queries: average departure delays by month, delays by carrier, worst flights
+- **Format:** Jupyter Notebook
 
-### HW2
-- Binary Classification Implementation
-- Hypothesis Testing
-- Jupyter Notebook Analysis
+### HW2: Classification and Hypothesis Testing
+- **binary_classifier.ipynb**: Logistic regression on student grades (Pass/Fail prediction) with train-test split, feature scaling, and confusion matrix
+- **hypothesis.ipynb**: Hypothesis space learning with specific (S) and general (G) hypotheses; precision, recall, accuracy, F1 score, and False Positive Rate
+- **Format:** Jupyter Notebooks
 
-### HW3
-- Advanced Machine Learning Concepts
-- Model Implementation
-
-### HW4
-- Data Processing Techniques
-- Analysis Methods
-
-### HW5
-- Advanced Analysis
-- Model Optimization
-
-### HW6
-- Final Implementation
-- Advanced Applications
+### HW3–HW6: Written Reports
+- HW3–HW5: PDF submissions
+- HW6: Word document submission
+- Topics cover advanced machine learning concepts and analysis
 
 ## Technologies Used
 - Python
 - Jupyter Notebooks
-- Machine Learning Libraries
-- Data Analysis Tools
-- Statistical Analysis Packages
-
-Each assignment progressively builds upon previous concepts, creating a comprehensive understanding of machine learning applications in data science.
+- Pandas, NumPy
+- scikit-learn (logistic regression, metrics)

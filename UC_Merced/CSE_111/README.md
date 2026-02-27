@@ -30,10 +30,11 @@ The course covers:
   - Complex database operations
   - Extensive test suites
 
-### Quizzes (Quiz_01-Quiz_05)
+### Quizzes (Quiz_01, Quiz_02, Quiz_04, Quiz_05)
 - Practical SQL assessments
 - Database concept validation
 - Query writing exercises
+- Note: Quiz_03 was not assigned
 
 ### Final Project
 - Comprehensive database implementation

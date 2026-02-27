@@ -4,8 +4,9 @@
 
 This repository serves as a centralized collection of academic coursework, research efforts, and associated projects spanning multiple institutions. It has been curated to provide a structured and navigable resource for students, educators, and professionals interested in exploring a variety of academic domains. Current contributions originate from the following institutions:
 
-- **University of California, Merced (UC Merced)**  
+- **University of California, Merced (UC Merced)**
 - **University of Southern California (USC)**
+- **Online Certifications** (Coursera specializations)
 
 Each directory is organized to facilitate straightforward access to lecture notes, programming assignments, laboratory exercises, examination materials, and supplemental reference documents.
 
@@ -13,20 +14,16 @@ Each directory is organized to facilitate straightforward access to lecture note
 
 The repository’s top-level directories are segmented by institution and further subdivided by course and project type. This organizational hierarchy ensures that all materials are logically grouped, simplifying the process of locating specific topics or assignments.
 
-- **`UC Merced/`**  
-  Contains coursework, sample assignments, projects, and related materials from the University of California, Merced. The subdirectories are typically organized by course code or academic term, and each course may include:
-  - Assignments (source code, problem sets, solution guidelines)  
-  - Lecture notes and slide decks  
-  - Final and midterm exam preparation materials  
-  - Research project documentation and data
+- **`UC_Merced/`**
+  Contains coursework from 9 Computer Science and Mathematics courses, including data structures, algorithms, database systems, web development, and object-oriented programming. Each course directory includes labs, assignments, and projects implemented in C++, Java, Python, C, and MIPS assembly.
 
-- **`USC/`**  
-  Encompasses a range of materials from various USC programs and departments, structured similarly to the UC Merced directory. Expect to find:  
-  - Programming labs and coding exercises  
-  - Case studies and research-oriented projects  
-  - Supporting documents such as reference readings or external datasets
+- **`USC/`**
+  Encompasses coursework from 4 Computer Science and Data Science graduate courses covering information retrieval, database systems, machine learning, and data management. Assignments use Python, Java, SQL, and tools like Hadoop and Weaviate.
 
-Within each university directory, you may also find README files that provide more granular details regarding the nature, prerequisites, and intended learning outcomes of the contained coursework.
+- **`Certifications/`**
+  Self-paced online coursework from Coursera, including the DeepLearning.AI NLP Specialization (Python/TensorFlow) and Stanford’s Machine Learning course (MATLAB/Octave).
+
+Within each directory, README files provide detailed descriptions of individual courses, assignments, and technologies used.
 
 ## License
 
@@ -40,7 +37,7 @@ This repository is distributed under the terms specified in the [LICENSE](./LICE
    ```
    
 2. **Explore the Directories:**  
-   Navigate into the relevant university directory (e.g., `UC Merced/` or `USC/`) and locate the course or project of interest. Each course directory may have its own README or instructional document detailing setup procedures, requirements, and grading criteria.
+   Navigate into the relevant directory (e.g., `UC_Merced/`, `USC/`, or `Certifications/`) and locate the course or project of interest. Each course directory may have its own README or instructional document detailing setup procedures, requirements, and grading criteria.
 
 3. **Follow Project-Specific Instructions:**  
    Many projects contain their own environment setup scripts, dependencies, or configuration instructions. Refer to the provided README within each project directory to ensure correct installation and execution. This may involve:

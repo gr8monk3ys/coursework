@@ -1,22 +1,32 @@
 # CSE 15 - Discrete Mathematics
 
-This repository contains lab assignments and projects for UC Merced's CSE 15 course on Discrete Mathematics.
+This repository contains lab assignments for UC Merced's CSE 15 course, applying discrete mathematics concepts through Python programming.
 
 ## Course Content
 
-The course covers fundamental concepts in discrete mathematics, including:
-- Logic and Truth Tables
-- Basic Programming with Python
-- Recursion
-- Problem-Solving Techniques
+The course covers:
+- Propositional logic and boolean algebra
+- Truth tables and logical equivalence
+- Recursion and mathematical induction
+- Basic Python programming
 
-## Directory Structure
+## Lab Structure
 
-- **Lab_01**: Introduction to Python programming with basic problem-solving
-- **Lab_02**: Logic implementation and truth tables
-- **Lab_03**: Recursion concepts and implementation
+### Lab_01: Introduction to Python
+- Basic I/O with `input()`
+- Conditional statements (even/odd detection)
+- Arrays/lists with iteration
+- Finding maximum values in lists
+
+### Lab_02: Propositional Logic and Truth Tables
+- **truth_tables.py**: Generates truth tables for logical operators (negation, conjunction, disjunction, implication, biconditional)
+- **logic.py**: `TruthTable` class with formula parsing, truth value generation, and LaTeX output
+- Supports complex formulas with parentheses and operator precedence
+
+### Lab_03: Recursion
+- **factorial(n)**: Classic recursive factorial
+- **fib(n)**: Fibonacci sequence via double recursion
+- **addup(list)**: Recursive list summation using tail slicing
 
 ## Technologies Used
-- Python 3.x
-
-Each lab directory contains its own set of problems and implementations focusing on different discrete mathematics concepts.
+- Python
