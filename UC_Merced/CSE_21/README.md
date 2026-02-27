@@ -24,7 +24,8 @@ The course covers:
    - Student matching algorithm implementation
 
 ## Lab Structure
-- **Lab_01-11**: Progressive learning of Java concepts
+- **Lab_01–Lab_11**: Progressive learning of Java concepts (Lab_06 was not assigned)
+- **Lab_01_CSE12**: Introductory lab carried over from prerequisite course CSE 12
 - Each lab builds upon previous knowledge
 - Focus on practical implementation of programming concepts
 

@@ -47,7 +47,7 @@ env/
 # C / C++
 # =========================
 *.o
-*.out
+# *.out excluded — CSE_111 uses .out files as expected query output fixtures
 *.exe
 *.dll
 *.so
@@ -80,6 +80,7 @@ yarn-error.log*
 # =========================
 .env
 .env.*
+!.env.example
 *.pem
 *.key
 

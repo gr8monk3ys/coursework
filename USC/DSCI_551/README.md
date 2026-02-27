@@ -16,23 +16,27 @@ The course covers:
 
 ### Homework Assignments
 
-1. **Homework 1**: Search and Indexing
+1. **HW_01**: Search and Indexing
    - Creating index structures
    - Loading data
    - Implementing search functionality
    - Price-based searching
 
-2. **Homework 2**: Data Conversion
+2. **HW_02**: Data Conversion
    - XML to CSV conversion
    - Data transformation techniques
 
-3. **Homework 3**: SQL Programming
+3. **HW_03**: SQL Programming
    - Multiple SQL query implementations
    - Database operations
    - Advanced query techniques
 
+4. **HW_04**: Data Management Concepts
+
+5. **HW_05**: Applied Data Processing
+
 ### Labs
-- Practical implementations of course concepts
+- **Lab_01–Lab_04**: Practical implementations of course concepts
 - Data conversion exercises
 - Hands-on database management
 
